@@ -1,20 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
+import Home from './pages/Home';
+import About from './pages/About';
+import Products from './pages/Products';
+import Contact from './pages/Contact';
+import { Toaster } from 'sonner';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-     <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-     
-    </>
-  )
+    <Router>
+      <div className="flex flex-col min-h-screen relative font-sans">
+        <Navbar />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        <Footer />
+        <Toaster position="top-center" richColors theme="light" />
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
