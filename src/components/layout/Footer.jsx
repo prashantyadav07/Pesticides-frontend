@@ -5,14 +5,14 @@ import { Sprout, Facebook, Twitter, Instagram, Linkedin, Send } from 'lucide-rea
 export default function Footer() {
   return (
     <footer className="bg-primary text-white pt-24 pb-12 relative overflow-hidden">
-      
+
       {/* Decorative Gradient/Mesh */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-black/20 to-transparent pointer-events-none" />
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
-      
+
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-8 xl:gap-16 mb-20">
-          
+
           {/* Logo & Tagline */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-2 group inline-block">
@@ -59,13 +59,13 @@ export default function Footer() {
             <h3 className="font-serif text-xl mb-3 text-white">Subscribe</h3>
             <p className="text-white/70 text-sm mb-6 font-light">The latest insights, agro research, and updates straight to your inbox.</p>
             <form className="relative" onSubmit={(e) => e.preventDefault()}>
-              <input 
-                type="email" 
-                placeholder="Email address..." 
+              <input
+                type="email"
+                placeholder="Email address..."
                 className="w-full bg-transparent border-b border-white/30 py-3 pr-12 text-white placeholder:text-white/50 focus:outline-none focus:border-secondary transition-colors font-light"
               />
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="absolute right-0 top-1/2 -translate-y-1/2 text-white/50 hover:text-secondary transition-colors"
                 aria-label="Subscribe"
               >

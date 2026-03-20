@@ -28,21 +28,21 @@ export default function Products() {
 
   return (
     <div className="w-full bg-background pt-24 pb-32 min-h-screen">
-      
+
       {/* 1. PAGE HEADER (Editorial) */}
       <section className="py-20 mb-12">
         <div className="container mx-auto px-6 md:px-12 text-center max-w-4xl">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }}
             className="w-1 h-20 bg-secondary mx-auto mb-8"
           />
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
             className="text-5xl md:text-7xl font-serif text-foreground mb-6 tracking-tight"
           >
             The <i className="text-primary italic">Catalog.</i>
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
             className="text-xl text-muted-foreground font-light leading-relaxed"
           >
@@ -52,24 +52,23 @@ export default function Products() {
       </section>
 
       <div className="container mx-auto px-6 md:px-12">
-        
+
         {/* 2. FILTER TABS (Minimalist) */}
         <div className="flex flex-wrap items-center justify-center gap-4 mb-20 border-b border-border pb-8">
           {categories.map((category) => (
             <button
               key={category.id}
               onClick={() => setActiveTab(category.id)}
-              className={`flex items-center gap-2 px-6 py-2 rounded-full font-serif text-lg transition-all relative ${
-                activeTab === category.id 
-                  ? 'text-primary' 
+              className={`flex items-center gap-2 px-6 py-2 rounded-full font-serif text-lg transition-all relative ${activeTab === category.id
+                  ? 'text-primary'
                   : 'text-muted-foreground hover:text-foreground'
-              }`}
+                }`}
             >
               {category.icon}
               {category.name}
               {/* Active Pill Indicator */}
               {activeTab === category.id && (
-                <motion.div 
+                <motion.div
                   layoutId="activeTabBadge"
                   className="absolute inset-0 bg-primary/5 rounded-full -z-10 border border-primary/20"
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -97,14 +96,14 @@ export default function Products() {
                 <div className="relative aspect-[4/5] overflow-hidden bg-background-alt mb-6">
                   {/* Subtle Background Pattern */}
                   <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#1A4731_1px,transparent_1px)] [background-size:16px_16px]" />
-                  
-                  <motion.img 
+
+                  <motion.img
                     layoutId={`img-${product.id}`}
-                    src={product.image} 
-                    alt={product.name} 
+                    src={product.image}
+                    alt={product.name}
                     className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-70 group-hover:scale-105 group-hover:opacity-90 transition-all duration-700"
                   />
-                  
+
                   {/* Badges */}
                   {product.tag && (
                     <div className="absolute top-6 left-6 z-20">
@@ -116,9 +115,9 @@ export default function Products() {
 
                   {/* Hover Overlay with Quick View */}
                   <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out flex items-center justify-center z-10">
-                     <div className="translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out flex items-center justify-center w-16 h-16 rounded-full bg-white text-primary shadow-2xl">
-                        <Plus className="h-8 w-8" />
-                     </div>
+                    <div className="translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out flex items-center justify-center w-16 h-16 rounded-full bg-white text-primary shadow-2xl">
+                      <Plus className="h-8 w-8" />
+                    </div>
                   </div>
                 </div>
 
@@ -145,30 +144,30 @@ export default function Products() {
         {selectedProduct && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-12 overflow-hidden pointer-events-none">
             {/* Backdrop */}
-            <motion.div 
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} 
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setSelectedProduct(null)}
               className="absolute inset-0 bg-black/60 backdrop-blur-md pointer-events-auto"
             />
-            
+
             {/* Modal Content */}
-            <motion.div 
+            <motion.div
               layoutId={`card-container-${selectedProduct.id}`}
               className="relative w-full max-w-6xl bg-background shadow-2xl overflow-hidden flex flex-col md:flex-row z-10 max-h-full rounded-none pointer-events-auto"
             >
               {/* Image Side */}
               <div className="w-full md:w-5/12 h-[30vh] md:h-auto relative bg-primary/5">
-                <motion.img 
+                <motion.img
                   layoutId={`img-${selectedProduct.id}`}
-                  src={selectedProduct.image} 
-                  alt={selectedProduct.name} 
+                  src={selectedProduct.image}
+                  alt={selectedProduct.name}
                   className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-80"
                 />
               </div>
-              
+
               {/* Content Side */}
               <div className="w-full md:w-7/12 p-8 md:p-16 flex flex-col justify-center bg-white overflow-y-auto relative">
-                <button 
+                <button
                   onClick={() => setSelectedProduct(null)}
                   className="absolute top-8 right-8 p-3 bg-muted hover:bg-secondary hover:text-primary rounded-full transition-colors z-20"
                 >
@@ -184,23 +183,23 @@ export default function Products() {
                       <Badge className="bg-primary/10 text-primary border-none hover:bg-primary/20">{selectedProduct.tag}</Badge>
                     )}
                   </div>
-                  
+
                   <motion.h2 layoutId={`title-${selectedProduct.id}`} className="text-4xl md:text-6xl font-serif text-foreground mb-6">
                     {selectedProduct.name}
                   </motion.h2>
-                  
+
                   <motion.p layoutId={`desc-${selectedProduct.id}`} className="text-xl text-primary font-serif italic mb-8 border-l-2 border-secondary pl-6">
                     "{selectedProduct.desc}"
                   </motion.p>
-                  
-                  <motion.div 
+
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
                     className="space-y-6 text-muted-foreground font-light leading-relaxed mb-12"
                   >
                     <p>{selectedProduct.longDesc}</p>
                   </motion.div>
-                  
-                  <motion.div 
+
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
                     className="mb-12"
                   >
@@ -213,8 +212,8 @@ export default function Products() {
                       ))}
                     </div>
                   </motion.div>
-                  
-                  <motion.div 
+
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
                     className="flex flex-col sm:flex-row gap-4 mt-auto pt-8 border-t border-border"
                   >
@@ -234,3 +233,4 @@ export default function Products() {
     </div>
   );
 }
+

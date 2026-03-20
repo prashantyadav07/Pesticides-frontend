@@ -26,11 +26,10 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        isScrolled
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled
           ? 'glassmorphism py-4 border-b border-border/40 shadow-sm'
           : 'bg-transparent py-6 border-transparent'
-      }`}
+        }`}
     >
       <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
         {/* LOGO LEFT */}
@@ -49,15 +48,14 @@ export default function Navbar() {
             <Link
               key={link.path}
               to={link.path}
-              className={`text-[15px] tracking-wide transition-all relative py-2 ${
-                location.pathname === link.path
+              className={`text-[15px] tracking-wide transition-all relative py-2 ${location.pathname === link.path
                   ? 'text-primary font-semibold'
                   : 'text-muted-foreground hover:text-primary'
-              }`}
+                }`}
             >
               {link.name}
               {location.pathname === link.path && (
-                <motion.div 
+                <motion.div
                   layoutId="nav-indicator"
                   className="absolute bottom-0 left-0 right-0 h-0.5 bg-secondary rounded-full"
                   initial={false}
@@ -109,17 +107,16 @@ export default function Navbar() {
                   <Link
                     to={link.path}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block py-4 text-xl font-serif border-b border-border/50 transition-colors ${
-                      location.pathname === link.path
+                    className={`block py-4 text-xl font-serif border-b border-border/50 transition-colors ${location.pathname === link.path
                         ? 'text-primary'
                         : 'text-muted-foreground'
-                    }`}
+                      }`}
                   >
                     {link.name}
                   </Link>
                 </motion.div>
               ))}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
                 className="pt-8"
               >
