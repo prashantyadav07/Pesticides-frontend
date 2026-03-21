@@ -1,92 +1,166 @@
-import React from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Sprout, Facebook, Twitter, Instagram, Linkedin, Send } from 'lucide-react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { Leaf, MapPin, Phone, Mail, Instagram, Twitter, Linkedin, Youtube, ChevronRight } from 'lucide-react';
+import { cn, staggerContainerVariants, fadeUpVariants } from '@/lib/utils';
 
-export default function Footer() {
+const quickLinks = [
+  { name: 'Home', path: '/' },
+  { name: 'Products', path: '/products' },
+  { name: 'About', path: '/about' },
+  { name: 'Contact', path: '/contact' },
+  { name: 'Blog', path: '#' },
+  { name: 'Careers', path: '#' },
+];
+
+const productLinks = [
+  'Insecticides', 'Herbicides', 'Fungicides',
+  'Fertilizers', 'Bio-Pesticides', 'Crop Seeds',
+];
+
+const socialLinks = [
+  { icon: Instagram, label: 'Instagram', href: '#' },
+  { icon: Twitter, label: 'Twitter', href: '#' },
+  { icon: Linkedin, label: 'LinkedIn', href: '#' },
+  { icon: Youtube, label: 'YouTube', href: '#' },
+];
+
+function Footer() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <footer className="bg-primary text-white pt-24 pb-12 relative overflow-hidden">
-
-      {/* Decorative Gradient/Mesh */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-black/20 to-transparent pointer-events-none" />
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
-
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-8 xl:gap-16 mb-20">
-
-          {/* Logo & Tagline */}
-          <div className="space-y-6">
-            <Link to="/" className="flex items-center gap-2 group inline-block">
-              <Sprout className="h-8 w-8 text-secondary" strokeWidth={1.5} />
-              <span className="text-3xl font-serif font-semibold tracking-tight text-white drop-shadow-sm">
-                Agro<span className="text-secondary italic">Sci</span>
-              </span>
-            </Link>
-            <p className="text-white/70 text-[15px] leading-relaxed max-w-sm font-sans font-light">
-              Elevating agricultural standards through cutting-edge, sustainable chemistry. Engineered for the farmers of tomorrow.
-            </p>
-            <div className="flex gap-3 pt-2">
-              <a href="#" className="h-10 w-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-secondary hover:border-secondary hover:text-primary transition-all duration-300 group"><Facebook className="h-4 w-4" /></a>
-              <a href="#" className="h-10 w-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-secondary hover:border-secondary hover:text-primary transition-all duration-300 group"><Twitter className="h-4 w-4" /></a>
-              <a href="#" className="h-10 w-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-secondary hover:border-secondary hover:text-primary transition-all duration-300 group"><Instagram className="h-4 w-4" /></a>
-              <a href="#" className="h-10 w-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-secondary hover:border-secondary hover:text-primary transition-all duration-300 group"><Linkedin className="h-4 w-4" /></a>
+    <footer className="bg-[#0A1628] text-white/90" role="contentinfo">
+      <motion.div
+        ref={ref}
+        variants={shouldReduceMotion ? {} : staggerContainerVariants}
+        initial="hidden"
+        animate={isInView ? 'visible' : 'hidden'}
+        className="container-custom section-padding"
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Column 1 — Brand */}
+          <motion.div variants={fadeUpVariants}>
+            <div className="flex items-center gap-2.5 mb-3">
+              <div className="w-9 h-9 rounded-full bg-[var(--primary)] flex items-center justify-center">
+                <Leaf className="size-5 text-white" />
+              </div>
+              <span className="font-serif font-bold text-xl">AgroShield</span>
             </div>
-          </div>
+            <p className="text-sm text-white/60 max-w-[220px] mt-2 leading-relaxed">
+              Empowering farmers with science-backed crop protection solutions for a prosperous harvest.
+            </p>
+            <div className="flex items-center gap-2 mt-6">
+              {socialLinks.map((social) => (
+                <motion.a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:bg-[var(--primary)] hover:border-[var(--primary)] transition-all duration-200"
+                  whileHover={shouldReduceMotion ? {} : { scale: 1.15 }}
+                  whileTap={shouldReduceMotion ? {} : { scale: 0.92 }}
+                >
+                  <social.icon className="size-4" />
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
 
-          {/* Quick Links */}
-          <div className="lg:pl-8">
-            <h3 className="font-serif text-xl mb-6 text-white border-b border-white/10 pb-4">Company</h3>
-            <ul className="space-y-4 font-sans font-light">
-              <li><Link to="/about" className="text-white/70 hover:text-secondary hover:tracking-wide transition-all duration-300 flex items-center gap-2 group"><span className="w-1.5 h-1.5 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition-opacity" /> About Us</Link></li>
-              <li><Link to="/sustainability" className="text-white/70 hover:text-secondary hover:tracking-wide transition-all duration-300 flex items-center gap-2 group"><span className="w-1.5 h-1.5 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition-opacity" /> Sustainability</Link></li>
-              <li><Link to="/careers" className="text-white/70 hover:text-secondary hover:tracking-wide transition-all duration-300 flex items-center gap-2 group"><span className="w-1.5 h-1.5 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition-opacity" /> Careers</Link></li>
-              <li><Link to="/contact" className="text-white/70 hover:text-secondary hover:tracking-wide transition-all duration-300 flex items-center gap-2 group"><span className="w-1.5 h-1.5 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition-opacity" /> Contact</Link></li>
+          {/* Column 2 — Quick Links */}
+          <motion.div variants={fadeUpVariants}>
+            <h4 className="text-xs font-semibold tracking-widest uppercase text-white/40 mb-4 font-sans">
+              Quick Links
+            </h4>
+            <ul className="flex flex-col gap-2.5">
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    to={link.path}
+                    className="text-sm text-white/70 hover:text-white hover:translate-x-1 transition-all duration-200 flex items-center gap-1 group"
+                  >
+                    <ChevronRight className="size-3 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200" />
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
-          </div>
+          </motion.div>
 
-          {/* Products Links */}
-          <div>
-            <h3 className="font-serif text-xl mb-6 text-white border-b border-white/10 pb-4">Solutions</h3>
-            <ul className="space-y-4 font-sans font-light">
-              <li><Link to="/products?category=insecticides" className="text-white/70 hover:text-secondary hover:tracking-wide transition-all duration-300 flex items-center gap-2 group"><span className="w-1.5 h-1.5 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition-opacity" /> Insecticides</Link></li>
-              <li><Link to="/products?category=herbicides" className="text-white/70 hover:text-secondary hover:tracking-wide transition-all duration-300 flex items-center gap-2 group"><span className="w-1.5 h-1.5 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition-opacity" /> Herbicides</Link></li>
-              <li><Link to="/products?category=fungicides" className="text-white/70 hover:text-secondary hover:tracking-wide transition-all duration-300 flex items-center gap-2 group"><span className="w-1.5 h-1.5 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition-opacity" /> Fungicides</Link></li>
-              <li><Link to="/products" className="text-white/70 hover:text-secondary hover:tracking-wide transition-all duration-300 flex items-center gap-2 group"><span className="w-1.5 h-1.5 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition-opacity" /> View Catalog</Link></li>
+          {/* Column 3 — Products */}
+          <motion.div variants={fadeUpVariants}>
+            <h4 className="text-xs font-semibold tracking-widest uppercase text-white/40 mb-4 font-sans">
+              Products
+            </h4>
+            <ul className="flex flex-col gap-2.5">
+              {productLinks.map((name) => (
+                <li key={name}>
+                  <Link
+                    to="/products"
+                    className="text-sm text-white/70 hover:text-white hover:translate-x-1 transition-all duration-200 flex items-center gap-1 group"
+                  >
+                    <ChevronRight className="size-3 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200" />
+                    {name}
+                  </Link>
+                </li>
+              ))}
             </ul>
-          </div>
+          </motion.div>
 
-          {/* Newsletter */}
-          <div className="bg-white/5 border border-white/10 p-8">
-            <h3 className="font-serif text-xl mb-3 text-white">Subscribe</h3>
-            <p className="text-white/70 text-sm mb-6 font-light">The latest insights, agro research, and updates straight to your inbox.</p>
-            <form className="relative" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="Email address..."
-                className="w-full bg-transparent border-b border-white/30 py-3 pr-12 text-white placeholder:text-white/50 focus:outline-none focus:border-secondary transition-colors font-light"
-              />
-              <button
-                type="submit"
-                className="absolute right-0 top-1/2 -translate-y-1/2 text-white/50 hover:text-secondary transition-colors"
-                aria-label="Subscribe"
-              >
-                <Send className="h-5 w-5" />
-              </button>
-            </form>
-          </div>
+          {/* Column 4 — Contact */}
+          <motion.div variants={fadeUpVariants}>
+            <h4 className="text-xs font-semibold tracking-widest uppercase text-white/40 mb-4 font-sans">
+              Get In Touch
+            </h4>
+            <div className="flex flex-col gap-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-lg bg-white/8 flex items-center justify-center shrink-0 mt-0.5">
+                  <MapPin className="size-4 text-white/70" />
+                </div>
+                <p className="text-sm text-white/70 leading-relaxed">
+                  123 Agro Hub, Delhi, India 110001
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-lg bg-white/8 flex items-center justify-center shrink-0 mt-0.5">
+                  <Phone className="size-4 text-white/70" />
+                </div>
+                <a href="tel:+919876543210" className="text-sm text-white/70 hover:text-white transition-colors">
+                  +91 98765 43210
+                </a>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-lg bg-white/8 flex items-center justify-center shrink-0 mt-0.5">
+                  <Mail className="size-4 text-white/70" />
+                </div>
+                <a href="mailto:info@agroshield.in" className="text-sm text-white/70 hover:text-white transition-colors">
+                  info@agroshield.in
+                </a>
+              </div>
+            </div>
+          </motion.div>
         </div>
 
-        {/* Copyright & Legal */}
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-white/50 text-sm font-light tracking-wide">
-            &copy; {new Date().getFullYear()} AgroSci. All rights reserved.
-          </p>
-          <div className="flex gap-8 text-sm text-white/50 font-light">
-            <a href="#" className="hover:text-secondary transition-colors">Privacy</a>
-            <a href="#" className="hover:text-secondary transition-colors">Terms</a>
-            <a href="#" className="hover:text-secondary transition-colors">Legal</a>
+        {/* Divider */}
+        <hr className="border-white/10 mt-12 mb-8" />
+
+        {/* Bottom Bar */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/40">
+          <p>&copy; 2024 AgroShield. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <a href="#" className="hover:text-white/70 transition-colors">Privacy Policy</a>
+            <span>&middot;</span>
+            <a href="#" className="hover:text-white/70 transition-colors">Terms of Service</a>
+            <span>&middot;</span>
+            <a href="#" className="hover:text-white/70 transition-colors">Sitemap</a>
           </div>
         </div>
-      </div>
+      </motion.div>
     </footer>
   );
 }
+
+export { Footer };
+export default Footer;

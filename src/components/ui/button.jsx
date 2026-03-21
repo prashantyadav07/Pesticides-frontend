@@ -1,44 +1,62 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva } from "class-variance-authority"
-import { cn } from "../../lib/utils"
+import * as React from 'react';
+import { cva } from 'class-variance-authority';
+import { motion, useReducedMotion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  'inline-flex items-center justify-center gap-2 font-sans font-semibold leading-none transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none select-none cursor-pointer whitespace-nowrap active:scale-[0.96] [&_svg]:pointer-events-none [&_svg]:shrink-0',
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+        primary:
+          'bg-[var(--primary)] text-white hover:bg-[var(--primary-light)] active:bg-[var(--primary-dark)] shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] shimmer',
+        secondary:
+          'bg-[var(--secondary)] text-white hover:bg-[var(--secondary-light)] shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)]',
+        outline:
+          'border-2 border-[var(--primary)] text-[var(--primary)] bg-transparent hover:bg-[var(--accent)] hover:border-[var(--primary-light)]',
+        ghost:
+          'text-[var(--primary)] bg-transparent hover:bg-[var(--accent)]',
+        'ghost-neutral':
+          'text-[var(--muted-foreground)] bg-transparent hover:bg-[var(--muted)] hover:text-[var(--foreground)]',
+        destructive:
+          'bg-[var(--destructive)] text-white hover:bg-red-700',
+        link:
+          'text-[var(--primary)] bg-transparent p-0 h-auto underline-offset-4 hover:underline',
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
+        sm: 'h-8 px-3 text-xs rounded-[var(--radius-sm)] [&_svg]:size-3.5',
+        md: 'h-10 px-5 text-sm rounded-[var(--radius)] [&_svg]:size-4',
+        lg: 'h-12 px-7 text-base rounded-[var(--radius)] [&_svg]:size-5',
+        xl: 'h-14 px-9 text-lg rounded-[var(--radius-lg)] [&_svg]:size-5',
+        icon: 'h-10 w-10 rounded-[var(--radius)] [&_svg]:size-5',
       },
     },
     defaultVariants: {
-      variant: "default",
-      size: "default",
+      variant: 'primary',
+      size: 'md',
     },
   }
-)
+);
 
-const Button = React.forwardRef(({ className, variant, size, asChild = false, ...props }, ref) => {
-  const Comp = asChild ? Slot : "button"
-  return (
-    <Comp
-      className={cn(buttonVariants({ variant, size, className }))}
-      ref={ref}
-      {...props}
-    />
-  )
-})
-Button.displayName = "Button"
+const Button = React.forwardRef(
+  ({ className, variant, size, children, ...props }, ref) => {
+    const shouldReduceMotion = useReducedMotion();
 
-export { Button, buttonVariants }
+    return (
+      <motion.button
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        whileTap={shouldReduceMotion ? {} : { scale: 0.96 }}
+        transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+        {...props}
+      >
+        {children}
+      </motion.button>
+    );
+  }
+);
+
+Button.displayName = 'Button';
+
+export { Button, buttonVariants };
+export default Button;

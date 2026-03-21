@@ -1,133 +1,236 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Sprout, Menu, X, ArrowRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '../ui/button';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { Menu, X, Leaf } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
-export default function Navbar() {
+const navLinks = [
+  { name: 'Home', path: '/' },
+  { name: 'Products', path: '/products' },
+  { name: 'About', path: '/about' },
+  { name: 'Contact', path: '/contact' },
+];
+
+function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const location = useLocation();
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Products', path: '/products' },
-    { name: 'Contact', path: '/contact' }
-  ];
+  useEffect(() => {
+    document.body.style.overflow = isMobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isMobileOpen]);
+
+  useEffect(() => {
+    setIsMobileOpen(false);
+  }, [location.pathname]);
 
   return (
-    <header
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled
-          ? 'glassmorphism py-4 border-b border-border/40 shadow-sm'
-          : 'bg-transparent py-6 border-transparent'
-        }`}
+    <nav
+      role="navigation"
+      aria-label="Main navigation"
+      className={cn(
+        'fixed top-0 w-full z-50 transition-all duration-300 ease-out',
+        isScrolled
+          ? 'glassmorphism border-b border-[rgba(10,124,92,0.08)]'
+          : 'bg-transparent border-b border-transparent'
+      )}
     >
-      <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-        {/* LOGO LEFT */}
-        <Link to="/" className="flex items-center gap-2 group relative z-50">
-          <div className="bg-primary/5 p-2 rounded-lg group-hover:bg-secondary/20 transition-all duration-300">
-            <Sprout className="h-7 w-7 text-primary group-hover:text-secondary transition-colors" strokeWidth={1.5} />
-          </div>
-          <span className="text-2xl font-serif font-semibold tracking-tight text-primary drop-shadow-sm">
-            Agro<span className="text-secondary italic">Sci</span>
-          </span>
+      <div className="container-custom flex items-center justify-between h-16">
+        {/* Logo */}
+        <Link to="/" aria-label="AgroShield Home">
+          <motion.div
+            className="flex items-center gap-2.5"
+            whileHover={shouldReduceMotion ? {} : { scale: 1.04 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+          >
+            <div className="w-9 h-9 rounded-full bg-[var(--primary)] flex items-center justify-center">
+              <Leaf className="size-5 text-white" />
+            </div>
+            <span className="font-serif font-bold text-xl text-[var(--foreground)]">
+              AgroShield
+            </span>
+          </motion.div>
         </Link>
 
-        {/* LINKS CENTER */}
-        <nav className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`text-[15px] tracking-wide transition-all relative py-2 ${location.pathname === link.path
-                  ? 'text-primary font-semibold'
-                  : 'text-muted-foreground hover:text-primary'
-                }`}
-            >
-              {link.name}
-              {location.pathname === link.path && (
-                <motion.div
-                  layoutId="nav-indicator"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-secondary rounded-full"
-                  initial={false}
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              )}
-            </Link>
-          ))}
-        </nav>
-
-        {/* CTA RIGHT */}
-        <div className="hidden md:flex items-center gap-6">
-          <Button className="bg-primary text-primary-foreground font-medium rounded-none group hover:bg-[#123122] transition-colors border border-primary relative overflow-hidden h-11 px-8 shadow-lg shadow-primary/10">
-            <span className="relative z-10 flex items-center gap-2">
-              Partner With Us
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </span>
-            <div className="absolute inset-0 bg-secondary translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out z-0" />
-          </Button>
-        </div>
-
-        {/* MOBILE TOGGLE */}
-        <button
-          className="md:hidden text-primary p-2 relative z-50 hover:bg-muted rounded-full transition-colors"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        {/* Desktop Links */}
+        <motion.div
+          className="hidden md:flex items-center gap-1"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.08 } },
+          }}
         >
-          {isMobileMenuOpen ? <X className="h-6 w-6" strokeWidth={1.5} /> : <Menu className="h-6 w-6" strokeWidth={1.5} />}
-        </button>
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.path;
+            return (
+              <motion.div
+                key={link.path}
+                variants={{
+                  hidden: { opacity: 0, y: -10 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+              >
+                <Link
+                  to={link.path}
+                  className={cn(
+                    'relative px-4 py-2 text-sm font-medium font-sans transition-colors duration-200 group',
+                    isActive
+                      ? 'text-[var(--primary)] font-semibold'
+                      : 'text-[var(--foreground)]/80 hover:text-[var(--primary)]'
+                  )}
+                >
+                  {link.name}
+                  <span
+                    className={cn(
+                      'absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] bg-[var(--primary)] rounded-full transition-all duration-300 ease-out',
+                      isActive ? 'w-[60%]' : 'w-0 group-hover:w-[60%]'
+                    )}
+                  />
+                </Link>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        {/* Desktop CTA */}
+        <motion.div
+          className="hidden md:flex items-center gap-3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.4 }}
+        >
+          <Link to="/contact">
+            <Button variant="primary" size="md">
+              Get Quote
+            </Button>
+          </Link>
+        </motion.div>
+
+        {/* Mobile Hamburger */}
+        <motion.button
+          className="md:hidden flex items-center justify-center w-10 h-10 rounded-[var(--radius)] text-[var(--foreground)] hover:bg-[var(--accent)] transition-colors"
+          onClick={() => setIsMobileOpen(!isMobileOpen)}
+          whileTap={shouldReduceMotion ? {} : { scale: 0.9 }}
+          aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            {isMobileOpen ? (
+              <motion.div
+                key="close"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <X className="size-5" />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="open"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Menu className="size-5" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.button>
       </div>
 
-      {/* MOBILE MENU DRAWER */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="absolute top-full left-0 w-full glassmorphism border-b overflow-hidden md:hidden shadow-xl"
-          >
-            <nav className="flex flex-col container mx-auto px-6 py-6 pb-10">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.path}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
+        {isMobileOpen && (
+          <>
+            <motion.div
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileOpen(false)}
+            />
+            <motion.div
+              className="fixed right-0 top-0 bottom-0 w-[280px] z-50 glassmorphism-dark text-white flex flex-col p-6 gap-8"
+              initial={{ x: '100%' }}
+              animate={{ x: '0%' }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', stiffness: 320, damping: 32 }}
+            >
+              {/* Drawer Header */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-[var(--primary)] flex items-center justify-center">
+                    <Leaf className="size-4 text-white" />
+                  </div>
+                  <span className="font-serif font-bold text-lg">AgroShield</span>
+                </div>
+                <motion.button
+                  className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+                  onClick={() => setIsMobileOpen(false)}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label="Close menu"
                 >
-                  <Link
-                    to={link.path}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block py-4 text-xl font-serif border-b border-border/50 transition-colors ${location.pathname === link.path
-                        ? 'text-primary'
-                        : 'text-muted-foreground'
-                      }`}
-                  >
-                    {link.name}
-                  </Link>
-                </motion.div>
-              ))}
-              <motion.div
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
-                className="pt-8"
-              >
-                <Button className="w-full bg-primary h-12 text-lg rounded-none border border-primary hover:bg-secondary hover:text-primary-foreground transition-colors group">
-                  Partner With Us <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <X className="size-4" />
+                </motion.button>
+              </div>
+
+              {/* Drawer Links */}
+              <div className="flex flex-col gap-2">
+                {navLinks.map((link, i) => {
+                  const isActive = location.pathname === link.path;
+                  return (
+                    <motion.div
+                      key={link.path}
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 + i * 0.06, duration: 0.35 }}
+                    >
+                      <Link
+                        to={link.path}
+                        onClick={() => setIsMobileOpen(false)}
+                        className={cn(
+                          'block px-4 py-3 text-lg font-semibold rounded-xl transition-all duration-200',
+                          isActive
+                            ? 'text-[var(--primary)] bg-white/10'
+                            : 'text-white/80 hover:text-white hover:bg-white/5'
+                        )}
+                      >
+                        {link.name}
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              {/* Divider */}
+              <div className="h-px bg-white/10" />
+
+              {/* CTA */}
+              <Link to="/contact" onClick={() => setIsMobileOpen(false)}>
+                <Button variant="primary" size="lg" className="w-full">
+                  Get Quote
                 </Button>
-              </motion.div>
-            </nav>
-          </motion.div>
+              </Link>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
-    </header>
+    </nav>
   );
 }
+
+export { Navbar };
+export default Navbar;

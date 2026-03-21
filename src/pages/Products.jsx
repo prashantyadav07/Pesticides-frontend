@@ -1,236 +1,293 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Leaf, Shield, FlaskConical, X, Plus, CheckCircle2 } from 'lucide-react';
-import { Button } from '../components/ui/button';
-import { Badge } from '../components/ui/badge';
+import { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { Search, Star, ShoppingCart, Eye, Package, ArrowRight, Loader2 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { cn, staggerContainerVariants, fadeUpVariants } from '@/lib/utils';
 
-const categories = [
-  { id: 'all', name: 'Full Catalog' },
-  { id: 'insecticides', name: 'Insecticides', icon: <Shield className="h-4 w-4" /> },
-  { id: 'herbicides', name: 'Herbicides', icon: <Leaf className="h-4 w-4" /> },
-  { id: 'fungicides', name: 'Fungicides', icon: <FlaskConical className="h-4 w-4" /> },
+const categories = ['All', 'Insecticides', 'Herbicides', 'Fungicides', 'Fertilizers', 'Bio-Pesticides', 'Seeds'];
+
+const allProducts = [
+  { id: 1, name: 'CropGuard Pro', category: 'Insecticides', desc: 'Broad-spectrum insecticide effective against aphids, bollworms, and whiteflies.', rating: 5, stock: 'In Stock', emoji: '🛡️' },
+  { id: 2, name: 'PestAway Max', category: 'Insecticides', desc: 'Contact and systemic action for controlling sucking and chewing insects.', rating: 4, stock: 'In Stock', emoji: '🐛' },
+  { id: 3, name: 'BugShield 360', category: 'Insecticides', desc: 'Long-lasting protection with low-dose application for economical pest management.', rating: 5, stock: 'Low Stock', emoji: '🔬' },
+  { id: 4, name: 'WeedOut Ultra', category: 'Herbicides', desc: 'Fast-acting selective herbicide for pre- and post-emergence weed control.', rating: 5, stock: 'In Stock', emoji: '🌿' },
+  { id: 5, name: 'HerbiClean Pro', category: 'Herbicides', desc: 'Non-selective herbicide for fallow land and pre-planting weed management.', rating: 4, stock: 'In Stock', emoji: '🧹' },
+  { id: 6, name: 'FungiShield', category: 'Fungicides', desc: 'Systemic fungicide against powdery mildew, rust, and blight diseases.', rating: 5, stock: 'In Stock', emoji: '🍄' },
+  { id: 7, name: 'BlightStop', category: 'Fungicides', desc: 'Preventive and curative action against late blight in potato and tomato crops.', rating: 4, stock: 'In Stock', emoji: '🧫' },
+  { id: 8, name: 'NitroBoost', category: 'Fertilizers', desc: 'High-nitrogen formulation for rapid vegetative growth and deep green foliage.', rating: 5, stock: 'In Stock', emoji: '🧪' },
+  { id: 9, name: 'RootMax Gold', category: 'Fertilizers', desc: 'Phosphorus-rich root developer strengthening root systems and nutrient uptake.', rating: 4, stock: 'In Stock', emoji: '🌱' },
+  { id: 10, name: 'MicroNute Plus', category: 'Fertilizers', desc: 'Complete micronutrient blend with zinc, boron, and manganese for balanced growth.', rating: 5, stock: 'Low Stock', emoji: '💊' },
+  { id: 11, name: 'BioDefend Plus', category: 'Bio-Pesticides', desc: 'Neem-based organic pest management solution for eco-conscious farming.', rating: 5, stock: 'In Stock', emoji: '🌿' },
+  { id: 12, name: 'BioGrow Natural', category: 'Bio-Pesticides', desc: 'Trichoderma-based bio-fungicide for organic crop disease management.', rating: 4, stock: 'In Stock', emoji: '🦠' },
+  { id: 13, name: 'HybridMax Wheat', category: 'Seeds', desc: 'High-yield hybrid wheat variety resistant to rust and drought conditions.', rating: 5, stock: 'In Stock', emoji: '🌾' },
+  { id: 14, name: 'GoldSeed Rice', category: 'Seeds', desc: 'Premium basmati rice seed with superior grain quality and aroma.', rating: 5, stock: 'In Stock', emoji: '🍚' },
 ];
 
-const productsData = [
-  { id: 1, name: 'Nexus YieldPro', category: 'insecticides', tag: 'Bestseller', desc: 'Next-generation systemic control.', longDesc: 'An advanced systemic formula providing up to 45 days of residual protection against over 60 common agricultural pests. Engineered to break down naturally in soil.', focus: ['Aphids', 'Whiteflies', 'Thrips'], image: 'https://images.unsplash.com/photo-1599940824399-b87987207ea1?q=80&w=800&auto=format&fit=crop' },
-  { id: 2, name: 'Aegis Prime 4X', category: 'herbicides', tag: 'New', desc: 'Selective broadleaf eradication.', longDesc: 'A patented selective herbicide that targets enzymes unique to broadleaf weeds without affecting corn, wheat, or sugarcane. Rapid visible results within 48 hours.', focus: ['Broadleaf Weeds', 'Crabgrass'], image: 'https://images.unsplash.com/photo-1586771107445-d3ca888129ff?q=80&w=800&auto=format&fit=crop' },
-  { id: 3, name: 'MycoShield Ultra', category: 'fungicides', tag: '', desc: 'Curative fungal defense matrix.', longDesc: 'A dual-action preventive and curative fungicide. Forms an active barrier on the leaf surface while systemically seeking and destroying existing fungal structures.', focus: ['Powdery Mildew', 'Rust', 'Blight'], image: 'https://images.unsplash.com/photo-1628101683917-7096e1913f01?q=80&w=800&auto=format&fit=crop' },
-  { id: 4, name: 'Botanica BioGuard', category: 'insecticides', tag: 'Organic', desc: 'OMRI-listed botanical extraction.', longDesc: 'Derived from specialized Pyrethrum extracts, delivering immediate knockdown of soft-bodied pests. Completely safe for beneficial pollinators when used as directed.', focus: ['Caterpillars', 'Mites'], image: 'https://images.unsplash.com/photo-1530836369250-ef71a3f5f3e4?q=80&w=800&auto=format&fit=crop' },
-  { id: 5, name: 'RhizoTech Foundation', category: 'fungicides', tag: 'Bestseller', desc: 'Subterranean root zone defense.', longDesc: 'Applied at planting, this unique formula coats emerging roots to prevent damping-off and soil-borne diseases. Enhances early-stage vigor and nutrient uptake.', focus: ['Root Rot', 'Damping-off'], image: 'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=80&w=800&auto=format&fit=crop' },
-  { id: 6, name: 'ClearField Catalyst', category: 'herbicides', tag: '', desc: 'Total pre-emergent vegetation control.', longDesc: 'Industrial-strength pre-emergent herbicide for maintaining pristine, weed-free zones around facilities, fence lines, and pre-plant agricultural fields.', focus: ['All vegetation'], image: 'https://images.unsplash.com/photo-1622383563227-04401ab4e5b6?q=80&w=800&auto=format&fit=crop' },
-];
+const stockColors = {
+  'In Stock': 'success',
+  'Low Stock': 'warning',
+  'Out of Stock': 'danger',
+};
 
-export default function Products() {
-  const [activeTab, setActiveTab] = useState('all');
+function Products() {
+  const shouldReduceMotion = useReducedMotion();
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [visibleCount, setVisibleCount] = useState(8);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const filteredProducts = activeTab === 'all' ? productsData : productsData.filter(p => p.category === activeTab);
+  const filtered = allProducts
+    .filter((p) => activeCategory === 'All' || p.category === activeCategory)
+    .filter((p) => p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.desc.toLowerCase().includes(searchQuery.toLowerCase()));
+
+  const visible = filtered.slice(0, visibleCount);
+  const hasMore = visibleCount < filtered.length;
+
+  const handleLoadMore = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setVisibleCount((c) => c + 4);
+      setIsLoading(false);
+    }, 800);
+  };
+
+  useEffect(() => {
+    setVisibleCount(8);
+  }, [activeCategory, searchQuery]);
 
   return (
-    <div className="w-full bg-background pt-24 pb-32 min-h-screen">
-
-      {/* 1. PAGE HEADER (Editorial) */}
-      <section className="py-20 mb-12">
-        <div className="container mx-auto px-6 md:px-12 text-center max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }}
-            className="w-1 h-20 bg-secondary mx-auto mb-8"
-          />
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-serif text-foreground mb-6 tracking-tight"
-          >
-            The <i className="text-primary italic">Catalog.</i>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl text-muted-foreground font-light leading-relaxed"
-          >
-            An uncompromising collection of the world's most advanced agricultural chemistry. Engineered for peak performance.
-          </motion.p>
+    <main role="main">
+      {/* Mini Hero */}
+      <section className="bg-green-gradient min-h-[220px] flex items-center pt-16">
+        <div className="container-custom flex flex-col md:flex-row justify-between items-start md:items-center gap-6 py-8">
+          <div>
+            <p className="text-xs text-white/50 mb-2">
+              <Link to="/" className="hover:text-white/70">Home</Link> &gt; Products
+            </p>
+            <h1 className="text-white font-serif text-3xl md:text-4xl font-bold">Our Product Range</h1>
+            <div className="mt-3">
+              <Badge variant="solid" size="lg">500+ Products Available</Badge>
+            </div>
+          </div>
+          <div className="hidden md:block opacity-40">
+            <svg viewBox="0 0 120 120" className="w-28 h-28" aria-hidden="true">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="white" strokeWidth="1" opacity="0.3" />
+              <path d="M60 30 Q80 50 75 80 Q70 100 60 110 Q50 100 45 80 Q40 50 60 30Z" fill="white" opacity="0.2" />
+              <circle cx="40" cy="50" r="8" fill="white" opacity="0.15" />
+              <circle cx="80" cy="70" r="5" fill="white" opacity="0.15" />
+            </svg>
+          </div>
         </div>
       </section>
 
-      <div className="container mx-auto px-6 md:px-12">
-
-        {/* 2. FILTER TABS (Minimalist) */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-20 border-b border-border pb-8">
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => setActiveTab(category.id)}
-              className={`flex items-center gap-2 px-6 py-2 rounded-full font-serif text-lg transition-all relative ${activeTab === category.id
-                  ? 'text-primary'
-                  : 'text-muted-foreground hover:text-foreground'
-                }`}
-            >
-              {category.icon}
-              {category.name}
-              {/* Active Pill Indicator */}
-              {activeTab === category.id && (
-                <motion.div
-                  layoutId="activeTabBadge"
-                  className="absolute inset-0 bg-primary/5 rounded-full -z-10 border border-primary/20"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              )}
-            </button>
-          ))}
-        </div>
-
-        {/* 3. PRODUCT GRID */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-16 relative z-10">
-          <AnimatePresence>
-            {filteredProducts.map((product) => (
-              <motion.div
-                layoutId={`card-container-${product.id}`}
-                key={product.id}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5 }}
-                className="group cursor-none h-full"
-                onClick={() => setSelectedProduct(product)}
-              >
-                {/* Modern Image Card */}
-                <div className="relative aspect-[4/5] overflow-hidden bg-background-alt mb-6">
-                  {/* Subtle Background Pattern */}
-                  <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#1A4731_1px,transparent_1px)] [background-size:16px_16px]" />
-
-                  <motion.img
-                    layoutId={`img-${product.id}`}
-                    src={product.image}
-                    alt={product.name}
-                    className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-70 group-hover:scale-105 group-hover:opacity-90 transition-all duration-700"
-                  />
-
-                  {/* Badges */}
-                  {product.tag && (
-                    <div className="absolute top-6 left-6 z-20">
-                      <Badge variant={product.tag === 'Organic' ? 'outline' : 'default'} className={`px-4 py-1 font-serif text-xs uppercase tracking-widest ${product.tag === 'Bestseller' ? 'bg-secondary text-primary hover:bg-secondary border-none' : 'border-primary text-primary bg-white'}`}>
-                        {product.tag}
-                      </Badge>
-                    </div>
+      {/* Filter Section */}
+      <section className="bg-[var(--background)] py-8 border-b border-[var(--border)]">
+        <div className="container-custom">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            {/* Category Tabs */}
+            <div className="flex gap-1 bg-[var(--muted)] p-1 rounded-full overflow-x-auto scrollbar-hide max-w-full">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  className={cn(
+                    'relative px-4 py-2 text-xs md:text-sm font-medium rounded-full whitespace-nowrap transition-colors duration-200',
+                    activeCategory === cat ? 'text-white' : 'text-[var(--muted-foreground)] hover:text-[var(--foreground)]'
                   )}
+                  onClick={() => setActiveCategory(cat)}
+                >
+                  {activeCategory === cat && (
+                    <motion.div
+                      layoutId="product-tab-pill"
+                      className="absolute inset-0 bg-[var(--primary)] rounded-full"
+                      transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                    />
+                  )}
+                  <span className="relative z-10">{cat}</span>
+                </button>
+              ))}
+            </div>
 
-                  {/* Hover Overlay with Quick View */}
-                  <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out flex items-center justify-center z-10">
-                    <div className="translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out flex items-center justify-center w-16 h-16 rounded-full bg-white text-primary shadow-2xl">
-                      <Plus className="h-8 w-8" />
-                    </div>
+            {/* Search */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-[var(--muted-foreground)]" />
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 pr-4 py-2.5 border border-[var(--border)] rounded-full text-sm bg-[var(--card)] w-48 focus:w-72 transition-[width] duration-300 ease-out focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20 outline-none"
+                aria-label="Search products"
+              />
+            </div>
+          </div>
+          <p className="text-sm text-[var(--muted-foreground)] mt-3">
+            Showing {Math.min(visibleCount, filtered.length)} of {filtered.length} products
+          </p>
+        </div>
+      </section>
+
+      {/* Product Grid */}
+      <section className="container-custom py-12">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeCategory + searchQuery}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            {visible.map((product, i) => (
+              <motion.div
+                key={product.id}
+                className="bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-sm)] transition-all duration-350 ease-out hover:border-[var(--primary)]/30 hover:shadow-[var(--shadow-lg)] hover:-translate-y-2 group"
+                initial={shouldReduceMotion ? {} : { opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.05, duration: 0.4 }}
+              >
+                {/* Image */}
+                <div className="relative aspect-[4/3] bg-[var(--accent)] flex items-center justify-center overflow-hidden">
+                  <span className="text-6xl transition-transform duration-500 group-hover:scale-110" role="img" aria-label={product.category}>
+                    {product.emoji}
+                  </span>
+                  <div className="absolute inset-0 bg-[var(--primary)]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                    <button
+                      onClick={() => setSelectedProduct(product)}
+                      className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+                      aria-label="Quick view"
+                    >
+                      <Eye className="size-5" />
+                    </button>
+                  </div>
+                  {/* Stock badge */}
+                  <div className="absolute top-3 right-3">
+                    <Badge variant={stockColors[product.stock]} size="sm">{product.stock}</Badge>
                   </div>
                 </div>
 
-                {/* Typography details */}
-                <div className="px-2">
-                  <p className="text-secondary text-xs uppercase tracking-[0.2em] font-bold mb-3">
-                    {categories.find(c => c.id === product.category)?.name}
-                  </p>
-                  <motion.h3 layoutId={`title-${product.id}`} className="text-3xl font-serif text-foreground mb-3 leading-tight group-hover:text-primary transition-colors">
-                    {product.name}
-                  </motion.h3>
-                  <motion.p layoutId={`desc-${product.id}`} className="text-muted-foreground font-light text-lg">
-                    {product.desc}
-                  </motion.p>
+                {/* Body */}
+                <div className="p-4">
+                  <Badge variant="default" size="sm">{product.category}</Badge>
+                  <h3 className="font-serif font-semibold text-base mt-2">{product.name}</h3>
+                  <p className="text-xs text-[var(--muted-foreground)] mt-1 line-clamp-2">{product.desc}</p>
+
+                  {/* Rating */}
+                  <div className="flex items-center gap-0.5 mt-2">
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <Star
+                        key={j}
+                        className={cn(
+                          'size-3',
+                          j < product.rating ? 'fill-[#FBBF24] text-[#FBBF24]' : 'text-[var(--border)]'
+                        )}
+                      />
+                    ))}
+                    <span className="text-xs text-[var(--muted-foreground)] ml-1">{product.rating}.0</span>
+                  </div>
+
+                  <div className="flex items-center justify-between mt-3">
+                    <span className="text-xs text-[var(--muted-foreground)]">Contact for Price</span>
+                  </div>
+                  <Link to="/contact" className="block mt-3">
+                    <Button variant="primary" size="sm" className="w-full">
+                      <ShoppingCart className="size-3.5" /> Add to Inquiry
+                    </Button>
+                  </Link>
                 </div>
               </motion.div>
             ))}
-          </AnimatePresence>
-        </motion.div>
-      </div>
+          </motion.div>
+        </AnimatePresence>
 
-      {/* 4. EXPANDABLE DETAIL MODAL */}
+        {filtered.length === 0 && (
+          <div className="text-center py-16">
+            <Package className="size-16 text-[var(--muted-foreground)]/30 mx-auto" />
+            <p className="text-[var(--muted-foreground)] mt-4">No products found matching your search.</p>
+          </div>
+        )}
+
+        {/* Load More */}
+        {hasMore && (
+          <div className="text-center mt-10">
+            <Button variant="outline" size="lg" onClick={handleLoadMore} disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <Loader2 className="size-5 animate-spin" /> Loading...
+                </>
+              ) : (
+                <>
+                  Load More Products <ArrowRight className="size-5" />
+                </>
+              )}
+            </Button>
+          </div>
+        )}
+      </section>
+
+      {/* Quick View Modal */}
       <AnimatePresence>
         {selectedProduct && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-12 overflow-hidden pointer-events-none">
-            {/* Backdrop */}
+          <>
             <motion.div
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setSelectedProduct(null)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-md pointer-events-auto"
             />
-
-            {/* Modal Content */}
             <motion.div
-              layoutId={`card-container-${selectedProduct.id}`}
-              className="relative w-full max-w-6xl bg-background shadow-2xl overflow-hidden flex flex-col md:flex-row z-10 max-h-full rounded-none pointer-events-auto"
+              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[90vw] max-w-lg"
+              initial={{ opacity: 0, y: 60, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 40, scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 350, damping: 30 }}
             >
-              {/* Image Side */}
-              <div className="w-full md:w-5/12 h-[30vh] md:h-auto relative bg-primary/5">
-                <motion.img
-                  layoutId={`img-${selectedProduct.id}`}
-                  src={selectedProduct.image}
-                  alt={selectedProduct.name}
-                  className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-80"
-                />
-              </div>
-
-              {/* Content Side */}
-              <div className="w-full md:w-7/12 p-8 md:p-16 flex flex-col justify-center bg-white overflow-y-auto relative">
-                <button
-                  onClick={() => setSelectedProduct(null)}
-                  className="absolute top-8 right-8 p-3 bg-muted hover:bg-secondary hover:text-primary rounded-full transition-colors z-20"
-                >
-                  <X className="h-6 w-6" strokeWidth={1.5} />
-                </button>
-
-                <div>
-                  <div className="flex items-center gap-4 mb-4">
-                    <p className="text-secondary text-sm uppercase tracking-[0.2em] font-bold">
-                      {categories.find(c => c.id === selectedProduct.category)?.name}
-                    </p>
-                    {selectedProduct.tag && (
-                      <Badge className="bg-primary/10 text-primary border-none hover:bg-primary/20">{selectedProduct.tag}</Badge>
-                    )}
+              <div className="bg-[var(--card)] border border-[var(--border)] rounded-2xl overflow-hidden shadow-2xl">
+                <div className="aspect-[16/9] bg-[var(--accent)] flex items-center justify-center">
+                  <span className="text-8xl" role="img" aria-label={selectedProduct.category}>
+                    {selectedProduct.emoji}
+                  </span>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Badge variant="default">{selectedProduct.category}</Badge>
+                    <Badge variant={stockColors[selectedProduct.stock]} size="sm">{selectedProduct.stock}</Badge>
                   </div>
-
-                  <motion.h2 layoutId={`title-${selectedProduct.id}`} className="text-4xl md:text-6xl font-serif text-foreground mb-6">
-                    {selectedProduct.name}
-                  </motion.h2>
-
-                  <motion.p layoutId={`desc-${selectedProduct.id}`} className="text-xl text-primary font-serif italic mb-8 border-l-2 border-secondary pl-6">
-                    "{selectedProduct.desc}"
-                  </motion.p>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-                    className="space-y-6 text-muted-foreground font-light leading-relaxed mb-12"
-                  >
-                    <p>{selectedProduct.longDesc}</p>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-                    className="mb-12"
-                  >
-                    <h4 className="font-sans font-bold text-foreground mb-4 uppercase tracking-wider text-sm">Primary Targets</h4>
-                    <div className="flex flex-wrap gap-3">
-                      {selectedProduct.focus.map((f, i) => (
-                        <div key={i} className="flex items-center gap-2 bg-background-alt border border-border px-4 py-2 rounded-full text-sm font-medium text-foreground">
-                          <CheckCircle2 className="h-4 w-4 text-secondary" /> {f}
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-                    className="flex flex-col sm:flex-row gap-4 mt-auto pt-8 border-t border-border"
-                  >
-                    <Button className="bg-primary text-white hover:bg-[#123122] rounded-none px-8 h-14 text-lg border-none">
-                      Request Technical Data
+                  <h2 className="font-serif text-2xl font-bold">{selectedProduct.name}</h2>
+                  <div className="flex items-center gap-1 mt-2">
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <Star
+                        key={j}
+                        className={cn(
+                          'size-4',
+                          j < selectedProduct.rating ? 'fill-[#FBBF24] text-[#FBBF24]' : 'text-[var(--border)]'
+                        )}
+                      />
+                    ))}
+                  </div>
+                  <p className="text-[var(--muted-foreground)] mt-3 leading-relaxed">{selectedProduct.desc}</p>
+                  <div className="flex gap-3 mt-6">
+                    <Link to="/contact" className="flex-1">
+                      <Button variant="primary" size="lg" className="w-full">
+                        <ShoppingCart className="size-5" /> Inquire Now
+                      </Button>
+                    </Link>
+                    <Button variant="outline" size="lg" onClick={() => setSelectedProduct(null)}>
+                      Close
                     </Button>
-                    <Button variant="outline" className="rounded-none px-8 h-14 text-lg border-border hover:bg-background-alt font-medium">
-                      Contact Sales Rep
-                    </Button>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
             </motion.div>
-          </div>
+          </>
         )}
       </AnimatePresence>
-    </div>
+    </main>
   );
 }
 
+export { Products };
+export default Products;

@@ -1,31 +1,50 @@
-import * as React from "react"
-import { cva } from "class-variance-authority"
-import { cn } from "../../lib/utils"
+import * as React from 'react';
+import { cva } from 'class-variance-authority';
+import { cn } from '@/lib/utils';
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  'inline-flex items-center gap-1.5 rounded-full font-sans font-semibold text-xs tracking-wide transition-colors duration-200',
   {
     variants: {
       variant: {
         default:
-          "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
+          'bg-[var(--accent)] text-[var(--primary)] border border-[var(--primary)]/20',
         secondary:
-          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        destructive:
-          "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
-        outline: "text-foreground",
+          'bg-[var(--secondary)]/10 text-[var(--secondary)] border border-[var(--secondary)]/20',
+        success:
+          'bg-green-50 text-green-700 border border-green-200',
+        warning:
+          'bg-amber-50 text-amber-700 border border-amber-200',
+        danger:
+          'bg-red-50 text-red-700 border border-red-200',
+        outline:
+          'border border-[var(--border)] text-[var(--muted-foreground)] bg-transparent',
+        solid:
+          'bg-[var(--primary)] text-white',
+      },
+      size: {
+        sm: 'px-2 py-0.5 text-[10px]',
+        md: 'px-2.5 py-1 text-xs',
+        lg: 'px-3 py-1.5 text-sm',
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: 'default',
+      size: 'md',
     },
   }
-)
+);
 
-function Badge({ className, variant, ...props }) {
+function Badge({ className, variant, size, icon: Icon, children, ...props }) {
   return (
-    <div className={cn(badgeVariants({ variant }), className)} {...props} />
-  )
+    <span className={cn(badgeVariants({ variant, size, className }))} {...props}>
+      {Icon && <Icon className="size-3" />}
+      {children}
+    </span>
+  );
 }
 
-export { Badge, badgeVariants }
+Badge.displayName = 'Badge';
+
+export { Badge, badgeVariants };
+export default Badge;
