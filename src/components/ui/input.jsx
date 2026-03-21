@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 
-const Input = React.forwardRef(
+const Input = React.memo(React.forwardRef(
   ({ className, label, id, error, prefix: PrefixIcon, suffix: SuffixIcon, ...props }, ref) => {
     const inputId = id || React.useId();
 
@@ -14,7 +14,7 @@ const Input = React.forwardRef(
           id={inputId}
           ref={ref}
           className={cn(
-            'w-full h-14 px-4 pt-5 pb-2 bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] rounded-[var(--radius)] text-sm font-medium font-sans outline-none ring-0 transition-all duration-200 ease-out focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20 placeholder-transparent disabled:opacity-50 disabled:cursor-not-allowed peer',
+            'w-full h-14 px-4 pt-5 pb-2 bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] rounded-[var(--radius)] text-sm font-medium font-sans outline-none ring-0 transition-[border-color,box-shadow,background-color] duration-200 ease-out focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20 placeholder-transparent disabled:opacity-50 disabled:cursor-not-allowed peer',
             PrefixIcon && 'pl-10',
             SuffixIcon && 'pr-10',
             error && 'border-[var(--destructive)] focus:ring-[var(--destructive)]/20',
@@ -40,7 +40,7 @@ const Input = React.forwardRef(
       </div>
     );
   }
-);
+));
 
 Input.displayName = 'Input';
 

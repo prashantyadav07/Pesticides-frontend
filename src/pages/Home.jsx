@@ -1,730 +1,288 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import useEmblaCarousel from 'embla-carousel-react';
-import Autoplay from 'embla-carousel-autoplay';
 import {
-  Leaf, TrendingUp, CheckCircle, Award, Users, PlayCircle,
-  Shield, FlaskConical, Truck, Headphones, Recycle,
-  ChevronDown, ArrowRight, Star, MapPin, Calendar, BookOpen,
+  Shield, Zap, Leaf, Award, ArrowUpRight, Play,
+  ChevronRight, Star, Globe, Beaker, Users, CheckCircle2
 } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { cn, staggerContainerVariants, fadeUpVariants } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const marqueeText = '🌱 AgroShield · Premium Crop Protection · ISO Certified · 15+ Years · 10,000+ Farmers · Pan-India Delivery · Expert Agronomy Support · ';
+const Home = () => {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll();
 
-const features = [
-  { icon: Shield, title: 'Proven Protection', desc: 'Lab-tested formulations that deliver consistent results across diverse Indian climatic conditions and crop types.', stat: '99.2% Efficacy' },
-  { icon: FlaskConical, title: 'Research-Backed', desc: 'Developed at IARI-certified labs with rigorous field trials spanning multiple seasons and geographies.', stat: '50+ R&D Patents' },
-  { icon: Truck, title: 'Pan-India Delivery', desc: 'Express delivery network covering 18,000+ pin codes with temperature-controlled logistics.', stat: '3–5 Day Delivery' },
-  { icon: Headphones, title: '24/7 Expert Help', desc: 'Dedicated agronomy helpline staffed by qualified experts fluent in 12 Indian languages.', stat: '< 2 Min Response' },
-  { icon: Recycle, title: 'Eco-Friendly', desc: 'Sustainable formulations that protect crops while preserving soil health and biodiversity.', stat: '60% Less Residue' },
-  { icon: Award, title: 'ISO Certified', desc: 'ISO 9001:2015 quality management system ensuring every batch meets international standards.', stat: '15+ Certifications' },
-];
+  // Parallax effects
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
 
-const stats = [
-  { value: 10000, suffix: '+', label: 'Farmers Served' },
-  { value: 500, suffix: '+', label: 'Products' },
-  { value: 15, suffix: '+', label: 'Years Experience' },
-  { value: 98, suffix: '%', label: 'Satisfaction Rate' },
-];
-
-const products = [
-  { name: 'CropGuard Pro', category: 'Insecticides', desc: 'Broad-spectrum protection against aphids, bollworms, and whiteflies with extended residual action.' },
-  { name: 'WeedOut Ultra', category: 'Herbicides', desc: 'Fast-acting selective herbicide for pre- and post-emergence weed control in cereal crops.' },
-  { name: 'FungiShield', category: 'Fungicides', desc: 'Systemic action against powdery mildew, rust, and blight with preventive and curative modes.' },
-  { name: 'NitroBoost', category: 'Fertilizers', desc: 'High-nitrogen formulation for rapid vegetative growth and deep green foliage development.' },
-  { name: 'BioDefend Plus', category: 'Bio-Pesticides', desc: 'Neem-based organic solution for eco-conscious farmers seeking chemical-free pest management.' },
-  { name: 'RootMax Gold', category: 'Fertilizers', desc: 'Phosphorus-rich root developer that strengthens root systems and improves nutrient uptake.' },
-];
-
-const categoryEmoji = {
-  Insecticides: '🛡️',
-  Herbicides: '🌿',
-  Fungicides: '🍄',
-  Fertilizers: '🧪',
-  'Bio-Pesticides': '🌱',
-};
-
-const testimonials = [
-  { name: 'Ramesh Kumar', location: 'Haryana', quote: 'CropGuard Pro completely saved my wheat harvest this season. The results were visible within days and my yield increased by 40%.', initials: 'RK' },
-  { name: 'Priya Patel', location: 'Gujarat', quote: 'FungiShield works better than anything I\'ve tried in 15 years of farming. My cotton crop has never looked healthier.', initials: 'PP' },
-  { name: 'Suresh Reddy', location: 'Andhra Pradesh', quote: 'Fast delivery and incredible support team. They helped me choose the right product for my specific soil type.', initials: 'SR' },
-  { name: 'Anita Singh', location: 'Punjab', quote: 'My yield increased by 35% using NitroBoost. The quality of grains improved dramatically and I got better market prices.', initials: 'AS' },
-  { name: 'Mohan Lal', location: 'Rajasthan', quote: 'BioDefend is perfect for my organic farm. Finally a natural solution that actually works against major pests.', initials: 'ML' },
-];
-
-const blogPosts = [
-  { title: '5 Signs Your Crops Need Fungicide Treatment', category: 'Crop Health', date: 'Mar 15, 2024', desc: 'Learn to identify early signs of fungal infection and prevent crop losses with timely intervention.' },
-  { title: 'Organic vs Chemical Pesticides: What\'s Best for 2024?', category: 'Guides', date: 'Mar 10, 2024', desc: 'A comprehensive comparison to help you make the right choice for your farm and your budget.' },
-  { title: 'How to Read Pesticide Labels Correctly', category: 'Tips & Tricks', date: 'Mar 5, 2024', desc: 'Understanding dosage, safety instructions, and application methods for maximum effectiveness.' },
-];
-
-const tabs = ['All', 'Insecticides', 'Herbicides', 'Fungicides', 'Fertilizers'];
-
-function Home() {
-  const shouldReduceMotion = useReducedMotion();
-  const [activeTab, setActiveTab] = useState('All');
-  const heroRef = useRef(null);
-  const statsRef = useRef(null);
-  const particlesRef = useRef(null);
-
-  const filteredProducts = activeTab === 'All'
-    ? products
-    : products.filter((p) => p.category === activeTab);
-
-  /* GSAP — Hero parallax + particles */
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.to('.hero-visual-col', {
-        y: -50,
-        scrollTrigger: {
-          trigger: '.hero-section',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1.2,
-        },
-      });
-
-      gsap.utils.toArray('.hero-particle').forEach((el) => {
-        gsap.to(el, {
-          y: `random(-15, 15)`,
-          x: `random(-10, 10)`,
-          duration: `random(2.5, 4.5)`,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-          delay: Math.random() * 2,
-        });
-      });
-    }, heroRef);
-    return () => ctx.revert();
-  }, []);
-
-  /* GSAP — Stats counter */
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const counters = document.querySelectorAll('.stat-counter');
-      counters.forEach((counter) => {
-        const target = parseInt(counter.dataset.target, 10);
-        gsap.fromTo(
-          counter,
-          { innerText: 0 },
+      // Reveal animations for all sections
+      gsap.utils.toArray('.reveal').forEach((el) => {
+        gsap.fromTo(el,
+          { y: 50, opacity: 0 },
           {
-            innerText: target,
-            duration: 2.5,
-            ease: 'power2.out',
-            snap: { innerText: 1 },
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out",
             scrollTrigger: {
-              trigger: counter,
-              start: 'top 85%',
-              once: true,
-            },
+              trigger: el,
+              start: "top 85%",
+            }
           }
         );
       });
-    }, statsRef);
+    }, containerRef);
     return () => ctx.revert();
   }, []);
 
-  /* Embla Carousel */
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, dragFree: true, align: 'center' },
-    [Autoplay({ delay: 3500, stopOnInteraction: true })]
-  );
-  const [selectedDot, setSelectedDot] = useState(0);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    const onSelect = () => setSelectedDot(emblaApi.selectedScrollSnap());
-    emblaApi.on('select', onSelect);
-    onSelect();
-    return () => emblaApi.off('select', onSelect);
-  }, [emblaApi]);
-
   return (
-    <main role="main">
-      {/* ═══════ SECTION 1: HERO ═══════ */}
-      <section ref={heroRef} className="hero-section hero-glow bg-hero-mesh grid-background min-h-screen flex items-center pt-16 relative overflow-hidden">
-        {/* Background decorations */}
-        <div className="absolute -top-[10%] -right-[10%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[#0A7C5C]/10 to-[#1E90A0]/6 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-[5%] -left-[8%] w-[350px] h-[350px] rounded-full bg-[#1E90A0]/8 blur-3xl pointer-events-none" />
+    <div ref={containerRef} className="bg-white text-slate-900 selection:bg-emerald-200 selection:text-emerald-900 font-sans">
 
-        {/* Floating particles */}
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div
-            key={i}
-            className="hero-particle absolute w-2 h-2 rounded-full bg-[var(--primary)]/30"
-            style={{
-              top: `${15 + Math.random() * 60}%`,
-              left: `${50 + Math.random() * 45}%`,
-            }}
+      {/* ─── SECTION 1: CINEMATIC HERO ─── */}
+      <section className="relative min-h-[85svh] flex flex-col justify-start overflow-hidden bg-slate-50 pt-16 md:pt-20 pb-16 md:pb-20">
+        <motion.div style={{ y: bgY }} className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/30 to-slate-50 z-10" />
+          <img
+            src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2000"
+            className="w-full h-full object-cover opacity-90 scale-105"
+            alt="Hero Background"
           />
-        ))}
-
-        <div className="container-custom grid md:grid-cols-2 items-center gap-12 relative z-10">
-          {/* Left Column */}
-          <div>
-            <motion.div
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Badge variant="default" icon={Leaf}>
-                🌿 Trusted by 10,000+ Farmers Across India
-              </Badge>
-            </motion.div>
-
-            <motion.h1
-              className="mt-6 font-serif font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.1]"
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: {},
-                visible: { transition: { staggerChildren: 0.1 } },
-              }}
-            >
-              {['Protecting', 'Crops,'].map((word, i) => (
-                <motion.span
-                  key={i}
-                  className="inline-block mr-3"
-                  variants={{
-                    hidden: { opacity: 0, y: 50, filter: 'blur(6px)' },
-                    visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } },
-                  }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-              <br />
-              {['Empowering', 'Farmers'].map((word, i) => (
-                <motion.span
-                  key={`g-${i}`}
-                  className="inline-block mr-3 text-gradient"
-                  variants={{
-                    hidden: { opacity: 0, y: 50, filter: 'blur(6px)' },
-                    visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } },
-                  }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </motion.h1>
-
-            <motion.p
-              className="mt-6 text-lg text-[var(--muted-foreground)] max-w-md leading-relaxed"
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-            >
-              Science-backed crop protection solutions trusted by farmers from Kashmir to Kanyakumari. Better yields, healthier crops.
-            </motion.p>
-
-            <motion.div
-              className="mt-8 flex flex-wrap gap-4"
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
-            >
-              <Link to="/products">
-                <Button variant="primary" size="lg">
-                  Explore Products <ArrowRight className="size-5" />
-                </Button>
-              </Link>
-              <Button variant="outline" size="lg">
-                <PlayCircle className="size-5" /> Watch Demo
-              </Button>
-            </motion.div>
-
-            <motion.div
-              className="mt-8 flex flex-wrap gap-6"
-              initial="hidden"
-              animate="visible"
-              variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.15, delayChildren: 0.9 } } }}
-            >
-              {[
-                { icon: CheckCircle, text: 'ISO 9001:2015 Certified' },
-                { icon: Award, text: '15+ Years Experience' },
-                { icon: Users, text: '500+ Products' },
-              ].map((item) => (
-                <motion.div
-                  key={item.text}
-                  className="flex items-center gap-2 text-sm font-medium text-[var(--muted-foreground)]"
-                  variants={{
-                    hidden: { opacity: 0, y: 15 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-                  }}
-                >
-                  <item.icon className="size-4 text-[var(--primary)]" />
-                  {item.text}
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Right Column — Hero Visual */}
-          <div className="hero-visual-col relative w-full aspect-square max-w-[540px] mx-auto hidden md:block">
-            {/* Big circle background */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#E8F7F2] to-[#D1EAE3] animate-float" style={{ animationDuration: '6s' }} />
-
-            {/* Inner illustration */}
-            <div className="absolute inset-[15%] flex items-center justify-center">
-              <svg viewBox="0 0 200 200" className="w-full h-full" aria-hidden="true">
-                {/* Sun rays */}
-                {Array.from({ length: 8 }).map((_, i) => (
-                  <line
-                    key={i}
-                    x1="100" y1="35"
-                    x2={100 + 30 * Math.cos((i * Math.PI) / 4)}
-                    y2={35 + 30 * Math.sin((i * Math.PI) / 4)}
-                    stroke="#FBBF24" strokeWidth="2" strokeLinecap="round" opacity="0.5"
-                  />
-                ))}
-                <circle cx="100" cy="35" r="14" fill="#FBBF24" opacity="0.3" />
-                <circle cx="100" cy="35" r="8" fill="#FBBF24" opacity="0.6" />
-                {/* Field */}
-                <ellipse cx="100" cy="165" rx="85" ry="25" fill="#0A7C5C" opacity="0.15" />
-                <ellipse cx="100" cy="160" rx="70" ry="18" fill="#0A7C5C" opacity="0.1" />
-                {/* Central plant */}
-                <line x1="100" y1="155" x2="100" y2="75" stroke="#0A7C5C" strokeWidth="3" strokeLinecap="round" />
-                <path d="M100 130 Q120 115 115 95" stroke="#12A87C" strokeWidth="2" fill="none" />
-                <ellipse cx="118" cy="105" rx="18" ry="12" fill="#12A87C" opacity="0.7" transform="rotate(-25 118 105)" />
-                <path d="M100 110 Q80 95 85 75" stroke="#0A7C5C" strokeWidth="2" fill="none" />
-                <ellipse cx="82" cy="85" rx="16" ry="11" fill="#0A7C5C" opacity="0.7" transform="rotate(20 82 85)" />
-                <path d="M100 95 Q115 85 112 72" stroke="#12A87C" strokeWidth="1.5" fill="none" />
-                <ellipse cx="114" cy="76" rx="12" ry="8" fill="#12A87C" opacity="0.5" transform="rotate(-30 114 76)" />
-                {/* Small plants */}
-                <line x1="55" y1="158" x2="55" y2="128" stroke="#0A7C5C" strokeWidth="2" opacity="0.5" />
-                <ellipse cx="48" cy="132" rx="10" ry="7" fill="#0A7C5C" opacity="0.3" transform="rotate(15 48 132)" />
-                <line x1="145" y1="158" x2="145" y2="125" stroke="#12A87C" strokeWidth="2" opacity="0.5" />
-                <ellipse cx="152" cy="130" rx="10" ry="7" fill="#12A87C" opacity="0.3" transform="rotate(-15 152 130)" />
-              </svg>
-            </div>
-
-            {/* Floating Stat Card A — Top Left */}
-            <div className="absolute -left-4 top-1/4 glassmorphism rounded-2xl px-4 py-3 shadow-lg animate-float z-10">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[var(--accent)] flex items-center justify-center">
-                  <TrendingUp className="size-5 text-[var(--primary)]" />
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-[var(--primary)] font-serif">↑ 40%</div>
-                  <div className="text-xs text-[var(--muted-foreground)]">Crop Yield Increase</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Floating Stat Card B — Bottom Right */}
-            <div className="absolute -right-4 bottom-1/4 glassmorphism rounded-2xl px-4 py-3 shadow-lg animate-float animate-float-delay-1 z-10">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[var(--secondary)]/10 flex items-center justify-center">
-                  <Star className="size-5 text-[var(--secondary)]" />
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-[var(--secondary)] font-serif">₹2.4Cr</div>
-                  <div className="text-xs text-[var(--muted-foreground)]">Farmer Revenue Saved</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Card C — Top Right pill */}
-            <div className="absolute top-4 right-4 bg-[var(--primary)] text-white px-3 py-1.5 rounded-full text-xs font-semibold animate-float animate-float-delay-2 z-10">
-              🌱 100% Organic Options
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          animate={shouldReduceMotion ? {} : { y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-        >
-          <ChevronDown className="size-6 text-[var(--muted-foreground)]" />
         </motion.div>
-      </section>
 
-      {/* ═══════ SECTION 2: MARQUEE STRIP ═══════ */}
-      <div className="h-12 bg-[var(--primary)] overflow-hidden flex items-center">
-        <div className="animate-marquee text-white/90 text-sm font-medium tracking-wide">
-          {marqueeText.repeat(4)}
-        </div>
-      </div>
-
-      {/* ═══════ SECTION 3: FEATURES ═══════ */}
-      <FeaturesSection shouldReduceMotion={shouldReduceMotion} />
-
-      {/* ═══════ SECTION 4: STATS BAR ═══════ */}
-      <section ref={statsRef} className="bg-green-gradient text-white py-16">
-        <div className="container-custom">
-          <div className="grid grid-cols-2 lg:grid-cols-4">
-            {stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                className={cn(
-                  'text-center px-8 py-4',
-                  i < stats.length - 1 && 'border-r border-white/10'
-                )}
-                initial={shouldReduceMotion ? {} : { opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-              >
-                <div className="text-4xl md:text-5xl font-bold font-serif">
-                  <span className="stat-counter" data-target={stat.value}>0</span>
-                  <span>{stat.suffix}</span>
-                </div>
-                <div className="text-white/70 text-sm mt-1 font-medium">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ SECTION 5: PRODUCTS PREVIEW ═══════ */}
-      <section className="section-padding">
-        <div className="container-custom">
-          <SectionHeader
-            badge="Our Products"
-            title="Protection for Every Crop"
-            subtitle="Browse our range of scientifically formulated crop protection solutions designed for Indian agriculture."
-            shouldReduceMotion={shouldReduceMotion}
-          />
-
-          {/* Filter Tabs */}
-          <div className="flex gap-1 bg-[var(--muted)] p-1 rounded-full max-w-fit mx-auto mt-8">
-            {tabs.map((tab) => (
-              <button
-                key={tab}
-                className={cn(
-                  'relative px-5 py-2 text-sm font-medium rounded-full transition-colors duration-200',
-                  activeTab === tab
-                    ? 'text-white'
-                    : 'text-[var(--muted-foreground)] hover:text-[var(--foreground)]'
-                )}
-                onClick={() => setActiveTab(tab)}
-              >
-                {activeTab === tab && (
-                  <motion.div
-                    layoutId="tab-pill"
-                    className="absolute inset-0 bg-[var(--primary)] rounded-full"
-                    transition={{ type: 'spring', stiffness: 380, damping: 32 }}
-                  />
-                )}
-                <span className="relative z-10">{tab}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Product Grid */}
+        {/* Removed the negative margin (-mt) and added positive margin to bring the text lower, away from the navbar */}
+        <div className="container mx-auto px-4 sm:px-6 relative z-20 text-center flex flex-col mt-12 md:mt-20">
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10"
-            key={activeTab}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.35 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="max-w-5xl mx-auto"
           >
-            {filteredProducts.map((product, i) => (
-              <motion.div
-                key={product.name}
-                className="bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-sm)] transition-all duration-350 ease-out hover:border-[var(--primary)]/30 hover:shadow-[var(--shadow-lg)] hover:-translate-y-2 group"
-                initial={shouldReduceMotion ? {} : { opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08, duration: 0.4 }}
-              >
-                {/* Card Media */}
-                <div className="relative aspect-[4/3] bg-[var(--accent)] flex items-center justify-center overflow-hidden">
-                  <span className="text-7xl" role="img" aria-label={product.category}>
-                    {categoryEmoji[product.category] || '🌾'}
-                  </span>
-                  <div className="absolute inset-0 bg-[var(--primary)]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <Button variant="outline" size="md" className="border-white text-white hover:bg-white/20 hover:border-white">
-                      View Details
-                    </Button>
-                  </div>
-                </div>
-                {/* Card Body */}
-                <div className="p-5">
-                  <Badge variant="default" size="sm">{product.category}</Badge>
-                  <h3 className="font-serif text-lg font-semibold mt-2">{product.name}</h3>
-                  <p className="text-sm text-[var(--muted-foreground)] mt-1 line-clamp-2">{product.desc}</p>
-                  <div className="flex justify-between items-center mt-4">
-                    <span className="text-xs text-[var(--muted-foreground)]">Contact for Price</span>
-                    <Link to="/contact">
-                      <Button variant="outline" size="sm">Inquire Now</Button>
-                    </Link>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+            <Badge className="bg-emerald-50 text-[#059669] border border-emerald-200 px-5 py-2 mb-8 md:mb-10 backdrop-blur-md text-xs font-bold tracking-[0.15em] shadow-sm uppercase rounded-full">
+              Est. 1999 • CIB&RC Registered
+            </Badge>
 
-          {/* View All */}
-          <div className="text-center mt-10">
-            <Link to="/products">
-              <Button variant="outline" size="lg">
-                View All Products <ArrowRight className="size-5" />
+            <h1 className="text-6xl sm:text-7xl md:text-[100px] lg:text-[130px] font-black tracking-tighter leading-[0.9] mb-6 text-[#0b132b]">
+              DEFENDING <br /> <span className="text-[#059669] bg-clip-text">YOUR  HARVEST.</span>
+            </h1>
+
+            <p className="max-w-2xl mx-auto text-slate-600 text-base sm:text-lg md:text-xl font-medium mb-12 px-2 sm:px-6 leading-relaxed">
+              Empowering 1.5 Million farmers with elite-grade crop protection chemistry and sustainable agronomy.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
+              <Button className="w-full sm:w-auto bg-[#0b132b] text-white hover:bg-[#059669] rounded-full px-10 py-7 md:py-8 text-base md:text-lg font-semibold transition-all duration-300 shadow-xl shadow-slate-200/50">
+                Browse Solutions
               </Button>
-            </Link>
-          </div>
+              <button className="flex items-center justify-center gap-4 group text-[#0b132b] font-bold hover:text-[#059669] transition-colors w-full sm:w-auto mt-2 sm:mt-0">
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-emerald-50 group-hover:border-emerald-200 transition-all shadow-sm bg-white">
+                  <Play size={20} fill="currentColor" className="ml-1 text-slate-700 group-hover:text-[#059669]" />
+                </div>
+                <span className="text-lg">Our Impact Story</span>
+              </button>
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-3 opacity-60">
+          <div className="w-[1px] h-16 bg-gradient-to-b from-[#059669] to-transparent animate-pulse" />
+          <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-slate-500">Scroll</span>
         </div>
       </section>
 
-      {/* ═══════ SECTION 6: TESTIMONIALS ═══════ */}
-      <section className="section-padding bg-[var(--background-alt)]">
-        <div className="container-custom">
-          <SectionHeader
-            badge="Testimonials"
-            title="What Farmers Say"
-            subtitle="Real stories from farmers who transformed their yields with AgroShield products."
-            shouldReduceMotion={shouldReduceMotion}
-          />
+      {/* ─── SECTION 2: BENTO TRUST GRID ─── */}
+      <section className="py-12 md:py-20 px-4 sm:px-6 container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 md:auto-rows-[280px]">
 
-          <div className="mt-12 overflow-hidden rounded-2xl" ref={emblaRef}>
-            <div className="flex gap-6">
-              {testimonials.map((t, i) => (
-                <div
-                  key={i}
-                  className="flex-[0_0_85%] md:flex-[0_0_45%] lg:flex-[0_0_32%] min-w-0"
-                >
-                  <div className="glassmorphism rounded-2xl p-6 flex flex-col gap-4 h-full min-h-[280px]">
-                    <div className="flex items-center justify-between">
-                      <span className="font-serif text-6xl text-[var(--primary)]/20 leading-none">&ldquo;</span>
-                      <div className="flex gap-0.5">
-                        {Array.from({ length: 5 }).map((_, j) => (
-                          <Star key={j} className="size-4 fill-[#FBBF24] text-[#FBBF24]" />
-                        ))}
-                      </div>
-                    </div>
-                    <p className="font-serif italic text-base text-[var(--foreground)] leading-relaxed flex-1">
-                      {t.quote}
-                    </p>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-[var(--accent)] flex items-center justify-center">
-                        <span className="text-sm font-bold text-[var(--primary)]">{t.initials}</span>
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold">{t.name}</p>
-                        <p className="text-xs text-[var(--muted-foreground)] flex items-center gap-1">
-                          <MapPin className="size-3" /> {t.location}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+          {/* Main Trust Card */}
+          <div className="md:col-span-8 md:row-span-2 bg-white border border-slate-200/80 rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-10 relative overflow-hidden reveal shadow-sm hover:shadow-xl transition-all duration-500">
+
+            <div className="absolute top-0 right-0 w-[80%] md:w-[65%] h-full pointer-events-none z-0">
+
+              {/* Solid white fade to smoothly blend the image border with the white left section */}
+              <div className="absolute inset-y-0 left-0 w-[50%] bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
+
+              {/* The BLUR overlay applied strictly on the left side of the image fading to clear on the right */}
+              <div className="absolute inset-y-0 left-0 w-[60%] backdrop-blur-md[mask-image:linear-gradient(to_right,black,transparent)] z-10" />
+
+              <img
+                src="https://images.unsplash.com/photo-1599940824399-b87987ceb72a?q=80&w=800"
+                className="w-full h-full object-cover object-center"
+                alt="Green Crop Background"
+              />
+            </div>
+
+            <div className="absolute top-8 md:top-10 right-8 md:right-10 flex items-center gap-3 z-20">
+              <div className="hidden sm:flex items-center gap-1.5 bg-[#f0fdf4]/90 px-4 py-2 rounded-full border border-emerald-200/80 backdrop-blur-md text-[#059669]">
+                <CheckCircle2 size={16} />
+                <span className="text-xs font-bold uppercase tracking-wider">100% Certified</span>
+              </div>
+              <div className="bg-[#059669] w-12 h-12 rounded-full flex items-center justify-center hover:bg-emerald-700 transition-colors shadow-md cursor-pointer pointer-events-auto">
+                <ArrowUpRight className="size-6 text-white" strokeWidth={2.5} />
+              </div>
+            </div>
+
+            <div className="relative z-20 flex flex-col h-full justify-between gap-8 md:gap-0">
+              <Shield className="size-14 md:size-16 text-[#059669]" />
+              <div className="max-w-full md:max-w-[65%]">
+                <h2 className="text-5xl sm:text-6xl md:text-[72px] font-black mb-4 md:mb-6 leading-[1.05] text-[#0b132b] tracking-tighter">
+                  Elite <br /> Compliance. <br /> Zero <br className="hidden sm:block" /> Compromise.
+                </h2>
+                <p className="text-slate-600 text-base md:text-xl font-medium leading-relaxed max-w-[90%] sm:max-w-full">
+                  Every CropLand formulation is rigorously tested and ISO 9001:2015 certified for global safety standards.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Dots */}
-          <div className="flex justify-center gap-2 mt-8">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => emblaApi?.scrollTo(i)}
-                aria-label={`Go to testimonial ${i + 1}`}
-                className={cn(
-                  'h-2 rounded-full transition-all duration-300',
-                  selectedDot === i
-                    ? 'w-5 bg-[var(--primary)]'
-                    : 'w-2 bg-[var(--border)]'
-                )}
-              />
+          {/* Stat Card 1 */}
+          <div className="md:col-span-4 bg-white border border-slate-200/80 rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10 reveal shadow-sm flex flex-col justify-center relative overflow-hidden">
+            <h4 className="text-[#059669] font-bold mb-4 flex items-center gap-2 italic uppercase tracking-wider text-xs md:text-sm">
+              <Zap size={16} /> Performance
+            </h4>
+            <div className="text-5xl md:text-6xl lg:text-7xl font-black mb-2 tracking-tighter text-[#0b132b]">25+</div>
+            <p className="text-slate-400 font-bold tracking-wide uppercase text-xs">Years of Innovation</p>
+          </div>
+
+          {/* Stat Card 2 (Vibrant Green) */}
+          <div className="md:col-span-4 bg-[#059669] rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10 reveal text-white group hover:bg-emerald-700 transition-colors duration-300 shadow-xl shadow-emerald-600/20 relative overflow-hidden flex flex-col justify-center">
+            <div className="relative z-10">
+              <div className="text-5xl md:text-6xl lg:text-7xl font-black mb-2 tracking-tighter">1.5M</div>
+              <p className="font-semibold tracking-wider uppercase text-xs text-emerald-100">Farmers Empowered</p>
+            </div>
+            <Users className="absolute -bottom-4 -right-4 size-32 opacity-10 group-hover:scale-110 transition-transform duration-500" />
+          </div>
+
+          {/* Technical Card */}
+          <div className="md:col-span-12 bg-blue-50/40 border border-blue-100/60 rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 reveal shadow-sm">
+            <div className="flex flex-wrap sm:flex-nowrap gap-8 md:gap-16 w-full md:w-auto">
+              <div>
+                <div className="text-3xl md:text-5xl font-black italic text-[#0b132b] tracking-tight">18+</div>
+                <div className="text-slate-500 text-[10px] md:text-xs uppercase tracking-[0.2em] mt-2 font-bold">States Covered</div>
+              </div>
+              <div className="w-[1px] h-16 bg-slate-300 hidden sm:block" />
+              <div>
+                <div className="text-3xl md:text-5xl font-black italic text-[#0b132b] tracking-tight">80+</div>
+                <div className="text-slate-500 text-[10px] md:text-xs uppercase tracking-[0.2em] mt-2 font-bold">Registrations</div>
+              </div>
+            </div>
+            <div className="text-left md:text-right w-full md:w-auto">
+              <p className="text-slate-600 max-w-md mb-5 font-medium text-sm md:text-base leading-relaxed">
+                Our R&D lab is equipped with high-performance liquid chromatography for purity checks.
+              </p>
+              <Link to="/about" className="inline-flex items-center gap-2 text-[#059669] font-bold text-xs md:text-sm uppercase tracking-widest hover:gap-3 transition-all underline decoration-emerald-200 underline-offset-4">
+                Laboratory Tour <ArrowUpRight size={16} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── SECTION 3: PRODUCT SLIDER ─── */}
+      <section className="py-12 md:py-20 bg-[#FAFAFA] rounded-t-[3rem] md:rounded-t-[4rem] border-t border-slate-200/50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-0 mb-8 md:mb-12 reveal">
+            <div>
+              <Badge className="bg-[#0b132b] text-white px-5 py-2 mb-6 text-xs font-bold tracking-widest uppercase rounded-full">PORTFOLIO</Badge>
+              <h2 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter text-[#0b132b] leading-[0.95]">
+                SCIENCE BEHIND <br className="hidden sm:block" />THE SHIELD.
+              </h2>
+            </div>
+            <Button variant="outline" className="w-full md:w-auto text-[#059669] border-slate-300 rounded-full px-8 py-6 hover:bg-[#059669] hover:text-white hover:border-[#059669] transition-all duration-300 font-bold text-sm bg-white">
+              View All Products <ChevronRight className="ml-2 size-4" />
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-10">
+            {[
+              { name: 'Terminator Plus', cat: 'Insecticide', img: 'https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800' },
+              { name: 'WeedShield Max', cat: 'Herbicide', img: 'https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800' },
+              { name: 'BlastGuard Pro', cat: 'Fungicide', img: 'https://images.unsplash.com/photo-1591130901921-3f0652bb3915?q=80&w=800' }
+            ].map((p, i) => (
+              <div key={i} className="reveal group cursor-pointer flex flex-col items-center md:items-start">
+                <div className="aspect-[4/5] md:aspect-[3/4] w-full rounded-[2rem] overflow-hidden mb-6 relative shadow-sm group-hover:shadow-2xl transition-all duration-500 bg-slate-200">
+                  <img src={p.img} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b132b]/90 via-[#0b132b]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-8 flex flex-col justify-end">
+                    <p className="text-white text-sm md:text-base font-medium leading-relaxed translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                      Advanced systemic protection with 14-day residual activity across all major cash crops.
+                    </p>
+                  </div>
+                </div>
+                <div className="px-2 text-center md:text-left w-full">
+                  <p className="text-[#059669] font-bold uppercase tracking-widest text-[11px] mb-2">{p.cat}</p>
+                  <h3 className="text-xl md:text-2xl font-black tracking-tight text-[#0b132b]">{p.name}</h3>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════ SECTION 7: CTA BANNER ═══════ */}
-      <section className="relative overflow-hidden bg-green-gradient py-24">
-        {/* Decorative bg */}
-        <div className="absolute right-0 top-0 opacity-10 w-64 pointer-events-none">
-          <svg viewBox="0 0 200 200" fill="white" aria-hidden="true">
-            <path d="M100 20 Q150 60 140 120 Q130 160 100 180 Q70 160 60 120 Q50 60 100 20Z" />
-            <path d="M100 50 Q120 40 135 55 Q115 65 100 50Z" opacity="0.5" />
-            <path d="M100 50 Q80 40 65 55 Q85 65 100 50Z" opacity="0.5" />
-          </svg>
-        </div>
-        <div className="absolute left-0 bottom-0 opacity-10 pointer-events-none">
-          <svg viewBox="0 0 100 100" className="w-32" aria-hidden="true">
-            {Array.from({ length: 5 }).map((_, r) =>
-              Array.from({ length: 5 }).map((_, c) => (
-                <circle key={`${r}-${c}`} cx={10 + c * 20} cy={10 + r * 20} r="2" fill="white" />
-              ))
-            )}
-          </svg>
-        </div>
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="text-center max-w-2xl mx-auto relative z-10 px-6">
-          <motion.h2
-            className="text-white font-serif text-3xl md:text-4xl font-bold"
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            Ready to Boost Your Harvest?
-          </motion.h2>
-          <motion.p
-            className="text-white/70 mt-4 text-lg"
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15, duration: 0.6 }}
-          >
-            Join 10,000+ farmers who trust AgroShield for their crop protection needs.
-          </motion.p>
-          <motion.div
-            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mt-8"
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          >
+      {/* ─── SECTION 4: INNOVATION CTA ─── */}
+      <section className="py-16 md:py-20 relative overflow-hidden bg-white">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 flex flex-col items-center text-center">
+          <div className="w-20 h-20 md:w-24 md:h-24 rounded-[1.5rem] md:rounded-[2rem] bg-emerald-50 border border-emerald-100 flex items-center justify-center mb-8 md:mb-10 reveal rotate-3 shadow-sm">
+            <Beaker className="text-[#059669] size-10 md:size-12" />
+          </div>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-6 reveal text-[#0b132b] tracking-tighter leading-tight">
+            Ready to upgrade <br className="hidden sm:block" /> your farm tech?
+          </h2>
+          <p className="text-slate-500 max-w-xl text-base md:text-lg mb-10 reveal font-medium px-4 leading-relaxed">
+            Connect with our field experts for a customized crop protection calendar tailored to your soil and season.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 reveal w-full max-w-lg mx-auto">
             <input
-              type="email"
-              placeholder="Enter your email"
-              className="bg-white/15 border border-white/30 text-white placeholder-white/60 rounded-full px-6 py-3 flex-1 outline-none focus:bg-white/20 focus:border-white/50 transition-all text-sm"
-              aria-label="Your email address"
+              placeholder="Your Phone Number"
+              className="bg-slate-50 border border-slate-200 rounded-full px-6 md:px-8 py-4 w-full focus:outline-none focus:border-emerald-400 focus:bg-white focus:ring-4 focus:ring-emerald-50 transition-all shadow-inner text-slate-900 font-medium placeholder:text-slate-400"
             />
-            <Button className="bg-white text-[var(--primary)] hover:bg-white/90 shimmer rounded-full px-6 py-3 font-semibold">
-              Get Free Consultation
+            <Button className="bg-[#059669] hover:bg-emerald-700 text-white font-bold rounded-full px-8 py-6 shadow-lg shadow-emerald-600/20 w-full sm:w-auto shrink-0 transition-colors">
+              Get Consultation
             </Button>
-          </motion.div>
-          <p className="mt-4 text-white/50 text-xs">
-            ✓ Free agronomy consultation &nbsp; ✓ No spam &nbsp; ✓ Reply within 24hrs
+          </div>
+        </div>
+
+        {/* Abstract Background Blobs */}
+        <div className="absolute top-1/2 left-0 w-72 h-72 md:w-96 md:h-96 bg-emerald-100/40 rounded-full blur-[100px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 md:w-[500px] md:h-[500px] bg-blue-50/60 rounded-full blur-[100px] md:blur-[120px] translate-y-1/3 translate-x-1/3 pointer-events-none" />
+      </section>
+
+      {/* ─── FOOTER ─── */}
+      <footer className="pt-12 md:pt-20 pb-8 border-t border-slate-200/60 bg-slate-50/50">
+        <div className="container mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-10 md:gap-12 text-center md:text-left">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-black italic text-[#059669] mb-1 md:mb-2 tracking-tight">CropLand.</h2>
+            <p className="text-slate-500 text-xs md:text-sm font-semibold tracking-wide">Innovating Protection Since 1999.</p>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-6 md:gap-10 text-[#0b132b] text-xs md:text-sm font-bold uppercase tracking-widest">
+            <Link to="/products" className="hover:text-[#059669] transition-colors">Products</Link>
+            <Link to="/quality" className="hover:text-[#059669] transition-colors">Quality</Link>
+            <Link to="/contact" className="hover:text-[#059669] transition-colors">Contact</Link>
+          </div>
+
+          <div className="flex gap-4">
+            <div className="size-10 md:size-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center hover:bg-[#059669] hover:text-white cursor-pointer transition-colors shadow-sm text-slate-600 hover:border-transparent">
+              <Globe size={18} />
+            </div>
+            <div className="size-10 md:size-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center hover:bg-[#059669] hover:text-white cursor-pointer transition-colors uppercase text-[10px] md:text-xs font-black shadow-sm text-slate-600 hover:border-transparent">
+              IN
+            </div>
+          </div>
+        </div>
+        <div className="container mx-auto px-6 mt-10 md:mt-12">
+          <p className="text-center text-slate-400 text-[10px] md:text-xs uppercase tracking-widest font-bold">
+            © {new Date().getFullYear()} CropLand Industries Pvt Ltd. All Rights Reserved.
           </p>
         </div>
-      </section>
+      </footer>
 
-      {/* ═══════ SECTION 8: BLOG TEASER ═══════ */}
-      <section className="section-padding">
-        <div className="container-custom">
-          <SectionHeader
-            badge="From Our Blog"
-            title="Latest Insights"
-            subtitle="Expert tips, research updates, and practical farming advice from our agronomy team."
-            shouldReduceMotion={shouldReduceMotion}
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-            {blogPosts.map((post, i) => (
-              <motion.article
-                key={post.title}
-                className="bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-lg)] hover:-translate-y-2 transition-all duration-350 group"
-                initial={shouldReduceMotion ? {} : { opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-              >
-                <div className="aspect-[16/9] bg-[var(--accent)] overflow-hidden flex items-center justify-center">
-                  <BookOpen className="size-12 text-[var(--primary)]/30 group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <div className="p-5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Badge variant="secondary" size="sm">{post.category}</Badge>
-                    <span className="text-xs text-[var(--muted-foreground)] flex items-center gap-1">
-                      <Calendar className="size-3" /> {post.date}
-                    </span>
-                  </div>
-                  <h3 className="font-serif font-semibold text-base leading-snug">{post.title}</h3>
-                  <p className="text-sm text-[var(--muted-foreground)] mt-2 line-clamp-2">{post.desc}</p>
-                  <button className="text-sm text-[var(--primary)] font-semibold mt-3 flex items-center gap-1 hover:gap-2 transition-all">
-                    Read More <ArrowRight className="size-4" />
-                  </button>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
-    </main>
+    </div>
   );
-}
+};
 
-/* ─── SUB-COMPONENTS ─── */
-
-function SectionHeader({ badge, title, subtitle, shouldReduceMotion }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
-
-  return (
-    <motion.div
-      ref={ref}
-      className="text-center max-w-xl mx-auto"
-      variants={staggerContainerVariants}
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
-    >
-      <motion.div variants={fadeUpVariants}>
-        <Badge variant="secondary">{badge}</Badge>
-      </motion.div>
-      <motion.h2
-        className="font-serif text-3xl md:text-4xl font-bold mt-4"
-        variants={fadeUpVariants}
-      >
-        {title}
-      </motion.h2>
-      <motion.p
-        className="text-[var(--muted-foreground)] mt-3 leading-relaxed"
-        variants={fadeUpVariants}
-      >
-        {subtitle}
-      </motion.p>
-    </motion.div>
-  );
-}
-
-function FeaturesSection({ shouldReduceMotion }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
-
-  return (
-    <section className="section-padding bg-[var(--background-alt)] relative">
-      <div className="container-custom">
-        <SectionHeader
-          badge="Why Choose Us"
-          title="Everything Your Crops Need"
-          subtitle="Comprehensive crop protection backed by 15+ years of research and real-world results."
-          shouldReduceMotion={shouldReduceMotion}
-        />
-
-        <motion.div
-          ref={ref}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16"
-          variants={staggerContainerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-        >
-          {features.map((feature) => (
-            <motion.div
-              key={feature.title}
-              className="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 cursor-default transition-all"
-              variants={fadeUpVariants}
-              whileHover={shouldReduceMotion ? {} : { y: -6, boxShadow: 'var(--shadow-xl)' }}
-            >
-              <div className="w-12 h-12 rounded-xl bg-[var(--accent)] flex items-center justify-center mb-4">
-                <feature.icon className="size-6 text-[var(--primary)]" />
-              </div>
-              <h3 className="text-lg font-semibold font-serif mb-2">{feature.title}</h3>
-              <p className="text-sm text-[var(--muted-foreground)] leading-relaxed">{feature.desc}</p>
-              <div className="mt-4">
-                <Badge variant="success" size="sm">{feature.stat}</Badge>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-export { Home };
 export default Home;

@@ -1,26 +1,27 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 
-const Card = React.forwardRef(({ className, hover = false, ...props }, ref) => (
+const Card = React.memo(React.forwardRef(({ className, hover = false, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
-      'bg-[var(--card)] text-[var(--card-foreground)] border border-[var(--border)] rounded-[var(--radius-lg)] shadow-[var(--shadow-sm)] transition-all duration-350 ease-out overflow-hidden',
-      hover && 'hover:border-[var(--primary)]/30 hover:shadow-[var(--shadow-lg)] hover:-translate-y-2 card-hover',
+      'bg-[var(--card)] text-[var(--card-foreground)] border border-[var(--border)] rounded-[var(--radius-lg)] shadow-[var(--shadow-sm)] overflow-hidden',
+      // transition-all replaced: only animate compositor-safe properties
+      hover && 'card-hover hover:-translate-y-2',
       className
     )}
     {...props}
   />
-));
+)));
 Card.displayName = 'Card';
 
-const CardHeader = React.forwardRef(({ className, ...props }, ref) => (
+const CardHeader = React.memo(React.forwardRef(({ className, ...props }, ref) => (
   <div
     ref={ref}
     className={cn('px-6 pt-6 pb-0 flex flex-col gap-1.5', className)}
     {...props}
   />
-));
+)));
 CardHeader.displayName = 'CardHeader';
 
 const CardTitle = React.forwardRef(({ className, ...props }, ref) => (

@@ -35,14 +35,14 @@ const badgeVariants = cva(
   }
 );
 
-function Badge({ className, variant, size, icon: Icon, children, ...props }) {
+const Badge = React.memo(function Badge({ className, variant, size, icon: Icon, children, ...props }) {
   return (
     <span className={cn(badgeVariants({ variant, size, className }))} {...props}>
       {Icon && <Icon className="size-3" />}
       {children}
     </span>
   );
-}
+});
 
 Badge.displayName = 'Badge';
 

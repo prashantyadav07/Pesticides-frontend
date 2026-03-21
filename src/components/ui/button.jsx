@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 font-sans font-semibold leading-none transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none select-none cursor-pointer whitespace-nowrap active:scale-[0.96] [&_svg]:pointer-events-none [&_svg]:shrink-0',
+  'inline-flex items-center justify-center gap-2 font-sans font-semibold leading-none transition-[transform,opacity,background-color,border-color,box-shadow] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none select-none cursor-pointer whitespace-nowrap active:scale-[0.96] [&_svg]:pointer-events-none [&_svg]:shrink-0',
   {
     variants: {
       variant: {
@@ -38,7 +38,7 @@ const buttonVariants = cva(
   }
 );
 
-const Button = React.forwardRef(
+const Button = React.memo(React.forwardRef(
   ({ className, variant, size, children, ...props }, ref) => {
     const shouldReduceMotion = useReducedMotion();
 
@@ -48,13 +48,14 @@ const Button = React.forwardRef(
         ref={ref}
         whileTap={shouldReduceMotion ? {} : { scale: 0.96 }}
         transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+        style={{ transform: 'translateZ(0)' }}
         {...props}
       >
         {children}
       </motion.button>
     );
   }
-);
+));
 
 Button.displayName = 'Button';
 
