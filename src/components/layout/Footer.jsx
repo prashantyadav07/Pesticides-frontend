@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
-import { Leaf, Instagram, Twitter, Linkedin, Youtube, ArrowRight, ShieldCheck, Mail, Phone } from 'lucide-react';
+import { Instagram, Twitter, Linkedin, Youtube, ArrowRight, ShieldCheck, Mail, Phone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const fadeInUp = {
@@ -45,9 +45,7 @@ function Footer() {
           {/* Brand Section */}
           <motion.div variants={fadeInUp} className="lg:col-span-4 space-y-4">
             <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center group-hover:rotate-6 transition-transform">
-                <Leaf className="size-4 text-white fill-white/10" />
-              </div>
+
               <span className="text-xl font-bold tracking-tight text-white">
                 Crop<span className="text-emerald-500">Land</span>
               </span>

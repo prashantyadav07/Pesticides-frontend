@@ -78,7 +78,7 @@ export default function Contact() {
             <Badge className="mb-6 bg-emerald-100 text-emerald-700 hover:bg-emerald-100 border-none px-4 py-1 rounded-full uppercase tracking-widest text-[10px] font-bold">
               Connect With CropLand
             </Badge>
-            <h1 className="text-6xl md:text-8xl font-serif font-medium tracking-tight leading-[0.9] mb-8">
+            <h1 className="text-4xl md:text-5xl font-serif font-medium tracking-tight leading-[0.9] mb-8">
               Let's grow <span className="italic text-emerald-600">something</span> <br />
               extraordinary.
             </h1>
@@ -95,7 +95,7 @@ export default function Contact() {
           */}
           <div className="lg:col-span-5 space-y-10 pr-8">
             <div className="left-element">
-              <p className="text-xl text-stone-600 max-w-xl leading-relaxed">
+              <p className="text-lg text-stone-600 max-w-xl leading-relaxed">
                 Have a question about sustainable farming? Our experts are standing by to help you optimize your yield. Choose your preferred method to reach out.
               </p>
             </div>
@@ -142,7 +142,7 @@ export default function Contact() {
             className="lg:col-span-7 bg-white border border-stone-200 rounded-[3.5rem] p-10 md:p-14 shadow-2xl shadow-stone-200/50 relative"
           >
             <div className="mb-10">
-              <h2 className="text-4xl font-serif font-medium tracking-tight">Send us a message</h2>
+              <h2 className="text-2xl font-serif font-medium tracking-tight">Send us a message</h2>
               <p className="text-stone-500 mt-1.5">A dedicated agronomist will review your request and get back to you.</p>
             </div>
 

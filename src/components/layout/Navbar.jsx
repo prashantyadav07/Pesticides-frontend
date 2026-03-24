@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Leaf, ChevronRight } from 'lucide-react';
+import { Menu, X, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -49,24 +49,15 @@ function Navbar() {
         className={cn(
           'pointer-events-auto transition-all duration-500 ease-in-out flex items-center justify-between',
           isScrolled
-            ? 'w-[90%] max-w-4xl rounded-full bg-white/80 backdrop-blur-xl border border-slate-200 shadow-xl py-2 px-6'
-            : 'w-full max-w-6xl rounded-[2.5rem] bg-white/40 backdrop-blur-md border border-white/40 py-4 px-10 shadow-sm'
+            ? 'w-[80%] max-w-2xl rounded-full bg-white/80 backdrop-blur-xl border border-slate-200 shadow-xl py-2 px-6'
+            : 'w-[90%] max-w-4xl rounded-[2.5rem] bg-white/40 backdrop-blur-md border border-white/40 py-3 px-10 shadow-sm'
         )}
       >
-        {/* Logo Section with Green Leaf */}
-        <Link to="/" className="flex items-center gap-2.5 group shrink-0">
-          <div className={cn(
-            "flex items-center justify-center rounded-2xl bg-emerald-50 transition-all duration-500 shadow-inner border border-emerald-100",
-            isScrolled ? "size-9" : "size-11"
-          )}>
-            <Leaf className={cn(
-              "transition-all duration-500 text-emerald-600 fill-emerald-600/10",
-              isScrolled ? "size-5" : "size-6"
-            )} />
-          </div>
+        {/* Logo Section */}
+        <Link to="/" className="flex items-center gap-2 group shrink-0">
           <span className={cn(
             "font-bold tracking-tight text-slate-900 transition-all duration-500",
-            isScrolled ? "text-lg" : "text-2xl"
+            isScrolled ? "text-xl" : "text-2xl"
           )}>
             Crop<span className="text-emerald-600">Land</span>
           </span>
@@ -118,7 +109,7 @@ function Navbar() {
               initial={{ y: -20, opacity: 0, scale: 0.95 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: -20, opacity: 0, scale: 0.95 }}
-              className="fixed top-24 inset-x-6 max-w-sm mx-auto bg-white rounded-[2.5rem] z-[70] shadow-2xl p-6 pointer-events-auto border border-slate-100"
+              className="fixed top-24 inset-x-8 max-w-[320px] mx-auto bg-white rounded-[2.5rem] z-[70] shadow-2xl p-6 pointer-events-auto border border-slate-100"
             >
               <div className="flex flex-col gap-2">
                 {navLinks.map((link) => (

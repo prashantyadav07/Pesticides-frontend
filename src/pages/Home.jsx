@@ -67,11 +67,11 @@ const Home = () => {
               Est. 1999 • CIB&RC Registered
             </Badge>
 
-            <h1 className="text-6xl sm:text-7xl md:text-[100px] lg:text-[130px] font-black tracking-tighter leading-[0.9] mb-6 text-[#0b132b]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[0.9] mb-6 text-[#0b132b]">
               DEFENDING <br /> <span className="text-[#059669] bg-clip-text">YOUR  HARVEST.</span>
             </h1>
 
-            <p className="max-w-2xl mx-auto text-slate-600 text-base sm:text-lg md:text-xl font-medium mb-12 px-2 sm:px-6 leading-relaxed">
+            <p className="max-w-2xl mx-auto text-slate-600 text-sm sm:text-base md:text-lg font-medium mb-12 px-2 sm:px-6 leading-relaxed">
               Empowering 1.5 Million farmers with elite-grade crop protection chemistry and sustainable agronomy.
             </p>
 
@@ -130,10 +130,10 @@ const Home = () => {
             <div className="relative z-20 flex flex-col h-full justify-between gap-8 md:gap-0">
               <Shield className="size-14 md:size-16 text-[#059669]" />
               <div className="max-w-full md:max-w-[65%]">
-                <h2 className="text-5xl sm:text-6xl md:text-[72px] font-black mb-4 md:mb-6 leading-[1.05] text-[#0b132b] tracking-tighter">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 md:mb-6 leading-[1.05] text-[#0b132b] tracking-tighter">
                   Elite <br /> Compliance. <br /> Zero <br className="hidden sm:block" /> Compromise.
                 </h2>
-                <p className="text-slate-600 text-base md:text-xl font-medium leading-relaxed max-w-[90%] sm:max-w-full">
+                <p className="text-slate-600 text-sm md:text-lg font-medium leading-relaxed max-w-[90%] sm:max-w-full">
                   Every CropLand formulation is rigorously tested and ISO 9001:2015 certified for global safety standards.
                 </p>
               </div>
@@ -145,14 +145,14 @@ const Home = () => {
             <h4 className="text-[#059669] font-bold mb-4 flex items-center gap-2 italic uppercase tracking-wider text-xs md:text-sm">
               <Zap size={16} /> Performance
             </h4>
-            <div className="text-5xl md:text-6xl lg:text-7xl font-black mb-2 tracking-tighter text-[#0b132b]">25+</div>
+            <div className="text-4xl md:text-5xl lg:text-6xl font-black mb-2 tracking-tighter text-[#0b132b]">25+</div>
             <p className="text-slate-400 font-bold tracking-wide uppercase text-xs">Years of Innovation</p>
           </div>
 
           {/* Stat Card 2 (Vibrant Green) */}
           <div className="md:col-span-4 bg-[#059669] rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10 reveal text-white group hover:bg-emerald-700 transition-colors duration-300 shadow-xl shadow-emerald-600/20 relative overflow-hidden flex flex-col justify-center">
             <div className="relative z-10">
-              <div className="text-5xl md:text-6xl lg:text-7xl font-black mb-2 tracking-tighter">1.5M</div>
+              <div className="text-4xl md:text-5xl lg:text-6xl font-black mb-2 tracking-tighter">1.5M</div>
               <p className="font-semibold tracking-wider uppercase text-xs text-emerald-100">Farmers Empowered</p>
             </div>
             <Users className="absolute -bottom-4 -right-4 size-32 opacity-10 group-hover:scale-110 transition-transform duration-500" />
@@ -162,12 +162,12 @@ const Home = () => {
           <div className="md:col-span-12 bg-blue-50/40 border border-blue-100/60 rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 reveal shadow-sm">
             <div className="flex flex-wrap sm:flex-nowrap gap-8 md:gap-16 w-full md:w-auto">
               <div>
-                <div className="text-3xl md:text-5xl font-black italic text-[#0b132b] tracking-tight">18+</div>
+                <div className="text-2xl md:text-4xl font-black italic text-[#0b132b] tracking-tight">18+</div>
                 <div className="text-slate-500 text-[10px] md:text-xs uppercase tracking-[0.2em] mt-2 font-bold">States Covered</div>
               </div>
               <div className="w-[1px] h-16 bg-slate-300 hidden sm:block" />
               <div>
-                <div className="text-3xl md:text-5xl font-black italic text-[#0b132b] tracking-tight">80+</div>
+                <div className="text-2xl md:text-4xl font-black italic text-[#0b132b] tracking-tight">80+</div>
                 <div className="text-slate-500 text-[10px] md:text-xs uppercase tracking-[0.2em] mt-2 font-bold">Registrations</div>
               </div>
             </div>
@@ -189,7 +189,7 @@ const Home = () => {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-0 mb-8 md:mb-12 reveal">
             <div>
               <Badge className="bg-[#0b132b] text-white px-5 py-2 mb-6 text-xs font-bold tracking-widest uppercase rounded-full">PORTFOLIO</Badge>
-              <h2 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter text-[#0b132b] leading-[0.95]">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter text-[#0b132b] leading-[0.95]">
                 SCIENCE BEHIND <br className="hidden sm:block" />THE SHIELD.
               </h2>
             </div>
@@ -229,7 +229,7 @@ const Home = () => {
           <div className="w-20 h-20 md:w-24 md:h-24 rounded-[1.5rem] md:rounded-[2rem] bg-emerald-50 border border-emerald-100 flex items-center justify-center mb-8 md:mb-10 reveal rotate-3 shadow-sm">
             <Beaker className="text-[#059669] size-10 md:size-12" />
           </div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-6 reveal text-[#0b132b] tracking-tighter leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-6 reveal text-[#0b132b] tracking-tighter leading-tight">
             Ready to upgrade <br className="hidden sm:block" /> your farm tech?
           </h2>
           <p className="text-slate-500 max-w-xl text-base md:text-lg mb-10 reveal font-medium px-4 leading-relaxed">

@@ -146,13 +146,13 @@ export default function About() {
             <Badge className="bg-[var(--primary)]/10 text-[var(--primary)] px-4 py-1.5 text-sm mb-8 border border-[var(--primary)]/20 rounded-full">
               Pioneering since 2009
             </Badge>
-            <h1 className="font-serif text-6xl md:text-8xl font-black mb-6 leading-[1.05] tracking-tight text-[var(--foreground)]">
+            <h1 className="font-serif text-4xl md:text-6xl font-black mb-6 leading-[1.05] tracking-tight text-[var(--foreground)]">
               The Science of <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)]">
                 Prosperous Harvests.
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-[var(--muted-foreground)] max-w-lg mb-10 leading-relaxed">
+            <p className="text-base md:text-lg text-[var(--muted-foreground)] max-w-lg mb-10 leading-relaxed">
               We blend cutting-edge agronomy with sustainable practices to create formulations that empower farmers and heal the earth.
             </p>
             <div className="flex gap-4">
@@ -191,7 +191,7 @@ export default function About() {
                 <div className="w-12 h-12 mb-4 rounded-full bg-[var(--primary)]/10 flex items-center justify-center">
                   <stat.icon className="w-6 h-6 text-[var(--primary)]" />
                 </div>
-                <h4 className="text-4xl md:text-5xl font-black font-serif text-[var(--foreground)] mb-2">{stat.value}</h4>
+                <h4 className="text-3xl md:text-4xl font-black font-serif text-[var(--foreground)] mb-2">{stat.value}</h4>
                 <p className="text-[var(--muted-foreground)] font-medium text-sm md:text-base uppercase tracking-wider">{stat.label}</p>
               </motion.div>
             ))}
@@ -234,10 +234,10 @@ export default function About() {
             viewport={{ once: true }}
           >
             <h2 className="text-[var(--primary)] font-bold tracking-widest uppercase mb-4 text-sm">Our Vision</h2>
-            <h3 className="font-serif text-4xl md:text-5xl font-black mb-6 leading-tight">
+            <h3 className="font-serif text-2xl md:text-3xl font-black mb-6 leading-tight">
               Bridging the gap between <span className="italic text-[var(--primary)]">Nature</span> and <span className="italic text-[var(--secondary)]">Technology.</span>
             </h3>
-            <p className="text-[var(--muted-foreground)] text-lg mb-6 leading-relaxed">
+            <p className="text-[var(--muted-foreground)] text-base mb-6 leading-relaxed">
               We envision a world where agriculture is not just about high yields, but about preserving the soil for generations. By integrating bio-technology with traditional farming wisdom, we formulate solutions that protect crops while nurturing the ecosystem.
             </p>
             <ul className="space-y-4">
@@ -259,8 +259,8 @@ export default function About() {
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, var(--primary) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
         
         <div className="container-custom relative z-10 text-center mb-20">
-          <h2 className="font-serif text-4xl md:text-5xl font-black mb-6">Pillars of Our <span className="text-[var(--primary)]">Excellence</span></h2>
-          <p className="text-[var(--muted-foreground)] text-lg max-w-2xl mx-auto">The principles that guide every experiment in our labs and every product we deliver to the fields.</p>
+          <h2 className="font-serif text-2xl md:text-3xl font-black mb-6">Pillars of Our <span className="text-[var(--primary)]">Excellence</span></h2>
+          <p className="text-[var(--muted-foreground)] text-base max-w-2xl mx-auto">The principles that guide every experiment in our labs and every product we deliver to the fields.</p>
         </div>
 
         <div className="container-custom relative z-10">
@@ -279,8 +279,8 @@ export default function About() {
       {/* ─── 5. EVOLUTION (Timeline) SECTION ─── */}
       <section className="py-32 relative">
         <div className="container-custom text-center mb-24">
-          <h2 className="font-serif text-4xl md:text-5xl font-black mb-6">Our Journey of <span className="text-[var(--secondary)]">Growth</span></h2>
-          <p className="text-[var(--muted-foreground)] text-lg max-w-2xl mx-auto">From a modest beginning to a global footprint, our evolution is a testament to relentless innovation.</p>
+          <h2 className="font-serif text-2xl md:text-3xl font-black mb-6">Our Journey of <span className="text-[var(--secondary)]">Growth</span></h2>
+          <p className="text-[var(--muted-foreground)] text-base max-w-2xl mx-auto">From a modest beginning to a global footprint, our evolution is a testament to relentless innovation.</p>
         </div>
 
         <div className="container-custom timeline-container relative">
@@ -303,10 +303,10 @@ export default function About() {
             viewport={{ once: true }}
             className="max-w-3xl mx-auto"
           >
-            <h2 className="font-serif text-5xl md:text-6xl font-black text-white mb-8">
+            <h2 className="font-serif text-3xl md:text-4xl font-black text-white mb-8">
               Ready to Cultivate Success?
             </h2>
-            <p className="text-white/80 text-xl mb-10 leading-relaxed">
+            <p className="text-white/80 text-lg mb-10 leading-relaxed">
               Partner with us to experience agricultural formulations that deliver unmatched yield and uncompromised safety.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
