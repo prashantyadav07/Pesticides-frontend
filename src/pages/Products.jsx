@@ -1,230 +1,116 @@
-import React, { useState, useMemo, useCallback, memo } from 'react';
-import { Search, Star, Eye, Package, X, Loader2, Shield, Leaf, Truck } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ShieldCheck, Leaf, Truck, Users, ArrowRight } from 'lucide-react';
+import ProductListing from '../components/products/ProductListing';
 
-// 1. STATIC DATA (Sample Data)
-const CATEGORIES = ['All', 'Insecticides', 'Herbicides', 'Fungicides', 'Bio-Pesticides', 'Plant Growth Regulators', 'Soil Health'];
-
-const ALL_PRODUCTS = [
-  { id: 1, name: 'Terminator Plus', category: 'Insecticides', desc: 'Precision control for sucking and chewing pests.', rating: 5, image: 'https://images.unsplash.com/photo-1628352081506-83c43123ed6d?w=400' },
-  { id: 2, name: 'WeedShield Max', category: 'Herbicides', desc: 'Effective weed management for paddy and wheat.', rating: 5, image: 'https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=400' },
-  { id: 3, name: 'BlastGuard Pro', category: 'Fungicides', desc: 'Systemic protection against fungal diseases.', rating: 5, image: 'https://images.unsplash.com/photo-1591130901921-3f0652bb3915?w=400' },
-  { id: 4, name: 'EcoDefend Bio', category: 'Bio-Pesticides', desc: 'Nature-derived solutions for organic farming.', rating: 4, image: 'https://images.unsplash.com/photo-1589923188900-85dae523342b?w=400' },
-  { id: 5, name: 'YieldBooster Gold', category: 'Plant Growth Regulators', desc: 'Maximize fruit set and quality.', rating: 5, image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400' },
-  { id: 6, name: 'SoilVitalize Prime', category: 'Soil Health', desc: 'Restore soil biology and water retention.', rating: 4, image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400' },
-];
-
-// 2. OPTIMIZED CARD COMPONENT (Memoized to prevent re-renders)
-const ProductCard = memo(({ product, onQuickView }) => {
+export default function Products() {
   return (
-    <div className="group bg-white rounded-2xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
-      <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-100">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
-          onError={(e) => { e.target.src = 'https://via.placeholder.com/400?text=No+Image'; }}
-        />
-        <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-          <button
-            onClick={() => onQuickView(product)}
-            className="bg-white p-3 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-all duration-300"
-          >
-            <Eye className="w-5 h-5 text-gray-700" />
-          </button>
+    <div className="min-h-screen bg-[#FAFAFA] font-sans overflow-x-hidden">
+      {/* Hero / Header Section */}
+      <section className="relative pt-32 pb-20 px-6 overflow-hidden">
+        {/* Abstract Background Elements */}
+        <div className="absolute top-0 left-0 w-full h-full -z-10 pointer-events-none">
+          <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-green-500/5 blur-[120px] rounded-full" />
+          <div className="absolute bottom-[10%] left-[-5%] w-[400px] h-[400px] bg-emerald-500/5 blur-[100px] rounded-full" />
+          <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
         </div>
-      </div>
 
-      <div className="mt-4 text-left">
-        <span className="text-[10px] font-bold uppercase tracking-wider text-green-700 bg-green-50 px-2 py-1 rounded">
-          {product.category}
-        </span>
-        <h3 className="text-lg font-bold mt-2 text-gray-900 truncate">{product.name}</h3>
-        <p className="text-xs text-gray-500 line-clamp-2 mt-1 min-h-[32px]">{product.desc}</p>
+        <div className="max-w-7xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 text-[11px] font-bold text-green-700 uppercase tracking-[0.2em] mb-6 border border-green-100 shadow-sm shadow-green-100/50">
+              <ShieldCheck size={14} className="animate-pulse" />
+              Certified Agricultural Solutions
+            </span>
+            <h1 className="text-5xl md:text-7xl font-black text-gray-900 leading-[1.1] mb-8 tracking-tight">
+              Premium <span className="text-green-600 bg-clip-text">Crop Protection</span>
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-500">For Modern Farming</span>
+            </h1>
+            <p className="max-w-2xl mx-auto text-lg text-gray-500 font-medium leading-relaxed">
+              Explore our laboratory-tested, high-performance pesticides and fertilizers designed to maximize your yield and protect your investments.
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
-        <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
-          <div className="flex gap-0.5">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} size={12} className={i < product.rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-200'} />
+      {/* Main Listing Section */}
+      <section className="pb-32 px-6">
+        <div className="max-w-7xl mx-auto">
+          <ProductListing />
+        </div>
+      </section>
+
+      {/* Trust / Stats Section */}
+      <section className="py-24 bg-gray-900 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20 [mask-image:radial-gradient(circle_at_center,white,transparent)]">
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-center">
+            {[
+              { icon: ShieldCheck, title: "100% Certified", desc: "Rigorous quality checks" },
+              { icon: Leaf, title: "Eco-Friendly", desc: "Sustainable solutions" },
+              { icon: Users, title: "10k+ Farmers", desc: "Trusted nationwide" },
+              { icon: Truck, title: "Fast Delivery", desc: "24-48h dispatch" }
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="flex flex-col items-center group"
+              >
+                <div className="w-16 h-16 rounded-[1.5rem] bg-white/5 flex items-center justify-center mb-6 group-hover:bg-green-600 transition-all duration-500 border border-white/10 group-hover:border-green-500">
+                  <stat.icon size={28} className="text-white opacity-80 group-hover:opacity-100" />
+                </div>
+                <h4 className="text-xl font-bold text-white mb-2">{stat.title}</h4>
+                <p className="text-gray-400 text-sm font-medium">{stat.desc}</p>
+              </motion.div>
             ))}
           </div>
-          <button className="text-xs font-bold text-green-600 hover:text-green-800 transition-colors">Inquire</button>
         </div>
-      </div>
-    </div>
-  );
-});
+      </section>
 
-// 3. MAIN COMPONENT
-export default function Products() {
-  const [query, setQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [selectedProduct, setSelectedProduct] = useState(null);
-
-  const filteredData = useMemo(() => {
-    return ALL_PRODUCTS.filter(item => {
-      const matchCat = activeCategory === 'All' || item.category === activeCategory;
-      const matchSearch = item.name.toLowerCase().includes(query.toLowerCase());
-      return matchCat && matchSearch;
-    });
-  }, [query, activeCategory]);
-
-  const handleQuickView = useCallback((p) => setSelectedProduct(p), []);
-
-  return (
-    // YAHAN CHANGE KIYA HAI: py-12 ko hata kar pt-32 pb-12 lagaya hai navbar se bachne ke liye
-    <div className="min-h-screen bg-gray-50 pt-32 pb-12 px-4 sm:px-6 lg:px-8 font-sans">
-      <div className="max-w-7xl mx-auto">
-
-        {/* Header Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
-            Our <span className="text-green-600">Premium Range</span>
-          </h1>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            High-quality agricultural solutions for sustainable farming and better crop yields.
-          </p>
-
-          {/* Search Bar */}
-          <div className="mt-8 relative max-w-md mx-auto">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-gray-400" />
-            </div>
-            <input
-              type="text"
-              className="block w-full pl-10 pr-3 py-4 border border-gray-200 rounded-2xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm shadow-sm transition-all"
-              placeholder="Search products..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-          </div>
-        </div>
-
-        {/* Category Tabs */}
-        <div className="flex overflow-x-auto no-scrollbar gap-2 mb-10 pb-2 justify-start md:justify-center">
-          {CATEGORIES.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`whitespace-nowrap px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-200 ${activeCategory === cat
-                  ? 'bg-green-600 text-white shadow-md'
-                  : 'bg-white text-gray-500 hover:bg-gray-100 border border-gray-100'
-                }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredData.length > 0 ? (
-            filteredData.map(product => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onQuickView={handleQuickView}
-              />
-            ))
-          ) : (
-            <div className="col-span-full text-center py-20 bg-white rounded-3xl border border-dashed border-gray-300">
-              <Package className="mx-auto h-12 w-12 text-gray-300" />
-              <h3 className="mt-2 text-sm font-medium text-gray-900">No products found</h3>
-              <p className="mt-1 text-sm text-gray-500">Try adjusting your search or category filter.</p>
-            </div>
-          )}
-        </div>
-
-        {/* SECTION 1: Features / Why Choose Us */}
-        <div className="mt-24 mb-12">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-extrabold text-gray-900">Why Choose Us?</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm text-center flex flex-col items-center">
-              <div className="bg-green-50 p-4 rounded-full mb-4">
-                <Shield className="w-8 h-8 text-green-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900">Certified Quality</h3>
-              <p className="text-gray-500 mt-2 text-sm">All our products are rigorously tested and certified for safe agricultural use.</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm text-center flex flex-col items-center">
-              <div className="bg-green-50 p-4 rounded-full mb-4">
-                <Leaf className="w-8 h-8 text-green-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900">Eco-Friendly</h3>
-              <p className="text-gray-500 mt-2 text-sm">Providing a wide range of bio-pesticides and organic solutions for sustainable farming.</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm text-center flex flex-col items-center">
-              <div className="bg-green-50 p-4 rounded-full mb-4">
-                <Truck className="w-8 h-8 text-green-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900">Fast Delivery</h3>
-              <p className="text-gray-500 mt-2 text-sm">Nationwide quick delivery network ensuring your crops get protected right on time.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* SECTION 2: Newsletter / Call to Action */}
-        <div className="mt-16 mb-8 bg-green-700 rounded-[2.5rem] p-8 md:p-12 text-center text-white shadow-xl">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-3xl font-extrabold mb-4">Grow Better With Us</h2>
-            <p className="text-green-100 mb-8">Subscribe to our newsletter to receive the latest updates on modern agricultural solutions, new products, and seasonal tips.</p>
-            <div className="flex flex-col sm:flex-row justify-center gap-3">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                className="px-6 py-4 rounded-full text-gray-900 w-full max-w-sm focus:outline-none focus:ring-4 focus:ring-green-400 shadow-sm"
-              />
-              <button className="bg-yellow-400 text-yellow-900 font-bold px-8 py-4 rounded-full hover:bg-yellow-300 transition-colors shadow-sm whitespace-nowrap">
-                Subscribe Now
-              </button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      {/* Simplified Modal */}
-      {selectedProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white rounded-3xl overflow-hidden max-w-lg w-full shadow-2xl relative animate-in fade-in zoom-in duration-200">
-            <button
-              onClick={() => setSelectedProduct(null)}
-              className="absolute top-4 right-4 p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors z-10"
-            >
-              <X size={20} className="text-gray-600" />
-            </button>
-
-            <div className="aspect-video bg-gray-100">
-              <img src={selectedProduct.image} className="w-full h-full object-cover" alt={selectedProduct.name} />
-            </div>
-
-            <div className="p-8 text-left">
-              <h2 className="text-2xl font-bold text-gray-900">{selectedProduct.name}</h2>
-              <span className="inline-block mt-2 text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded">
-                {selectedProduct.category}
-              </span>
-              <p className="mt-4 text-gray-600 leading-relaxed text-sm">
-                {selectedProduct.desc}
-              </p>
-
-              <div className="mt-8 flex gap-3">
-                <button className="flex-1 bg-green-600 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition-colors shadow-lg shadow-green-200">
-                  Inquire Now
-                </button>
-                <button
-                  onClick={() => setSelectedProduct(null)}
-                  className="px-6 py-3 border border-gray-200 rounded-xl font-bold text-gray-600 hover:bg-gray-50 transition-colors"
-                >
-                  Close
-                </button>
+      {/* CTA Section */}
+      <section className="py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative rounded-[3rem] bg-gradient-to-br from-green-600 to-emerald-700 p-12 md:p-20 overflow-hidden shadow-2xl shadow-green-200">
+            {/* Background pattern */}
+            <div className="absolute inset-0 opacity-10 blur-sm">
+              <div className="grid grid-cols-12 h-full w-full rotate-12 scale-150">
+                {[...Array(144)].map((_, i) => (
+                  <div key={i} className="border-[0.5px] border-white/20 aspect-square" />
+                ))}
               </div>
             </div>
+
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+              <div className="max-w-xl text-center md:text-left">
+                <h2 className="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">
+                  Need a custom solution for your farm?
+                </h2>
+                <p className="text-green-50 text-lg font-medium opacity-90">
+                  Our experts are ready to help you choose the right combination of products for your specific crop needs.
+                </p>
+              </div>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-5 bg-white text-green-700 rounded-2xl font-black text-lg flex items-center gap-3 shadow-xl hover:shadow-2xl transition-all"
+              >
+                Consult an Expert
+                <ArrowRight size={20} />
+              </motion.button>
+            </div>
           </div>
         </div>
-      )}
+      </section>
     </div>
   );
 }

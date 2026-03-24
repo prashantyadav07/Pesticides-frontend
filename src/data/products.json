@@ -1,0 +1,842 @@
+[
+  {
+    "id": 1,
+    "name": "Fipronil 15% + Chlorantraniliprole 5% SC",
+    "regNo": "CIR-363434/2026",
+    "category": "Insecticides",
+    "type": "SC",
+    "desc": "High-performance combo for comprehensive pest control.",
+    "image": "https://images.unsplash.com/photo-1628352081506-83c43123ed6d?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice, Maize, Cotton, Sugarcane, Vegetables",
+      "pests": "Stem borer, Leaf hopper, Aphids, Thrips, Rootworms",
+      "usage": "Soil treatment or foliar spray as recommended by local guidelines."
+    }
+  },
+  {
+    "id": 2,
+    "name": "Copper Sulphate Pentahydrate 23.99% SC",
+    "regNo": "CIR-363234/2026",
+    "category": "Fungicides",
+    "type": "SC",
+    "desc": "Premium systemic fungicide for disease prevention.",
+    "image": "https://images.unsplash.com/photo-1591130901921-3f0652bb3915?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "General Agricultural Crops",
+      "pests": "Wide range of standard crop pests/diseases",
+      "usage": "Follow local agricultural recommendations and label instructions."
+    }
+  },
+  {
+    "id": 3,
+    "name": "Azoxystrobin + Thiophanate methyl + Thiamethoxam FS",
+    "regNo": "CIR-363123/2026",
+    "category": "Combined Solution",
+    "type": "FS",
+    "desc": "Wide-spectrum seed treatment solution.",
+    "image": "https://images.unsplash.com/photo-1592419044706-39796d40f98c?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Cereals, Oilseeds, Fruits, Vegetables, Cotton",
+      "pests": "Whiteflies, Jassids, Aphids, Beetles, Grasshoppers",
+      "usage": "Systemic action through seed treatment or foliar application."
+    }
+  },
+  {
+    "id": 4,
+    "name": "Kasugamycin 5% + Copper Oxychloride 45% WP",
+    "regNo": "CIR-363122/2026",
+    "category": "Fungicides",
+    "type": "WP",
+    "desc": "Effective control for bacterial and fungal diseases.",
+    "image": "https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice, Fruits, Vegetables",
+      "pests": "Blast, Bacterial blight, Canker",
+      "usage": "Protective and curative antibiotic fungicide and bactericide."
+    }
+  },
+  {
+    "id": 5,
+    "name": "Chlorantraniliprole 8.8% + Thiamethoxam 17.5% SC",
+    "regNo": "CIR-363121/2026",
+    "category": "Insecticides",
+    "type": "SC",
+    "desc": "Advanced dual-action insecticide for long-term protection.",
+    "image": "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Corn, Cotton, Rice, Soybean, Tomato, Cabbage",
+      "pests": "Armyworm, Bollworm, Fruit borer, Diamondback moth",
+      "usage": "Apply when pest population reaches EIL; ensures long-term protection."
+    }
+  },
+  {
+    "id": 6,
+    "name": "2,4-D Sodium salt + Metribuzin + Pyrazosulfuron ethyl WDG",
+    "regNo": "CIR-361951/2026",
+    "category": "Combined Solution",
+    "type": "WDG",
+    "desc": "Comprehensive weed management for diverse crop fields.",
+    "image": "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Transplanted and Direct seeded Rice",
+      "pests": "Broadleaf weeds and Sedges",
+      "usage": "Selective herbicide; low dose requirement for rice crops."
+    }
+  },
+  {
+    "id": 7,
+    "name": "Ethephon 39% SL",
+    "regNo": "CIR-361950/2026",
+    "category": "Plant Growth Regulator",
+    "type": "SL",
+    "desc": "Promotes ripening and uniform growth in various crops.",
+    "image": "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Sugarcane, Rubber, Pineapple, Tomato, Mango",
+      "pests": "NA (Ripening agent)",
+      "usage": "Growth regulator for induction of flowering and ripening."
+    }
+  },
+  {
+    "id": 8,
+    "name": "Thiamethoxam 0.9 % + Fipronil 0.2% GR",
+    "regNo": "CIR-361949/2026",
+    "category": "Insecticides",
+    "type": "GR",
+    "desc": "Granular insecticide for soil-borne pest control.",
+    "image": "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice, Maize, Cotton, Sugarcane, Vegetables",
+      "pests": "Stem borer, Leaf hopper, Aphids, Thrips, Rootworms",
+      "usage": "Soil treatment or foliar spray as recommended by local guidelines."
+    }
+  },
+  {
+    "id": 9,
+    "name": "Pymetrozine 50% WG",
+    "regNo": "CIR-361948/2026",
+    "category": "Insecticides",
+    "type": "WG",
+    "desc": "Systemic insecticide specifically for sucking pests.",
+    "image": "https://images.unsplash.com/photo-1599447421416-3414502d18a5?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "General Agricultural Crops",
+      "pests": "Wide range of standard crop pests/diseases",
+      "usage": "Follow local agricultural recommendations and label instructions."
+    }
+  },
+  {
+    "id": 10,
+    "name": "Carbendazim 12% + Mancozeb 63% WP",
+    "regNo": "CIR-361947/2026",
+    "category": "Fungicides",
+    "type": "WP",
+    "desc": "Trusted dual-action fungicide for broad spectrum control.",
+    "image": "https://images.unsplash.com/photo-1591130901921-3f0652bb3915?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Cereals, Fruits, Vegetables, Plantations",
+      "pests": "Powdery mildew, Leaf spot, Blight, Seed-borne diseases",
+      "usage": "Systemic fungicide; used for foliar spray and seed treatment."
+    }
+  },
+  {
+    "id": 11,
+    "name": "Azoxystrobin 11% + Tebuconazole 18.3% SC",
+    "regNo": "CIR-362107/2026",
+    "category": "Fungicides",
+    "type": "SC",
+    "desc": "Advanced systemic protection for multiple fungal diseases.",
+    "image": "https://images.unsplash.com/photo-1592419044706-39796d40f98c?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Wheat, Rice, Groundnut, Onions, Soybean",
+      "pests": "Rust, Powdery mildew, Purple blotch, Tikka disease",
+      "usage": "Effective triazole fungicide for both preventive and curative use."
+    }
+  },
+  {
+    "id": 12,
+    "name": "Fipronil 40% + Imidacloprid 40% WG",
+    "regNo": "CIR-361946/2026",
+    "category": "Insecticides",
+    "type": "WG",
+    "desc": "Powerful combination for resistant pest populations.",
+    "image": "https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice, Maize, Cotton, Sugarcane, Vegetables",
+      "pests": "Stem borer, Leaf hopper, Aphids, Thrips, Rootworms",
+      "usage": "Soil treatment or foliar spray as recommended by local guidelines."
+    }
+  },
+  {
+    "id": 13,
+    "name": "Fipronil 0.3% G.R.",
+    "regNo": "CIR-361945/2026",
+    "category": "Insecticides",
+    "type": "GR",
+    "desc": "Soil-applied insecticide for long-lasting root protection.",
+    "image": "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice, Maize, Cotton, Sugarcane, Vegetables",
+      "pests": "Stem borer, Leaf hopper, Aphids, Thrips, Rootworms",
+      "usage": "Soil treatment or foliar spray as recommended by local guidelines."
+    }
+  },
+  {
+    "id": 14,
+    "name": "Dinotefuran 15% + Pymetrozine 45% WG",
+    "regNo": "CIR-361944/2026",
+    "category": "Insecticides",
+    "type": "WG",
+    "desc": "Next-gen solution for comprehensive sucking pest control.",
+    "image": "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice, Chili, Cotton, Vegetables",
+      "pests": "Brown Plant Hopper (BPH), Thrips, White flies",
+      "usage": "Third-generation neonicotinoid for sucking pest control."
+    }
+  },
+  {
+    "id": 15,
+    "name": "Profenofos 40% + Cypermethrin 4% EC",
+    "regNo": "CIR-362106/2026",
+    "category": "Insecticides",
+    "type": "EC",
+    "desc": "Effective knockdown and residual insecticide.",
+    "image": "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Cotton, Soybean, Vegetables",
+      "pests": "Bollworms, Aphids, Jassids, Mites",
+      "usage": "Broad-spectrum insecticide with acaricidal property."
+    }
+  },
+  {
+    "id": 16,
+    "name": "Thiamethoxam 1.0% + Chlorantraniliprole 0.5% GR",
+    "regNo": "CIR-362105/2026",
+    "category": "Insecticides",
+    "type": "GR",
+    "desc": "Dual-action granular insecticide for soil application.",
+    "image": "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Corn, Cotton, Rice, Soybean, Tomato, Cabbage",
+      "pests": "Armyworm, Bollworm, Fruit borer, Diamondback moth",
+      "usage": "Apply when pest population reaches EIL; ensures long-term protection."
+    }
+  },
+  {
+    "id": 17,
+    "name": "Lambda-cyhalothrin 4.9% Capsule Suspension",
+    "regNo": "CIR-362104/2026",
+    "category": "Insecticides",
+    "type": "CS",
+    "desc": "Encapsulated technology for extended pest protection.",
+    "image": "https://images.unsplash.com/photo-1599447421416-3414502d18a5?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Cereals, Cotton, Fruits, Vegetables, Oilseeds",
+      "pests": "Bollworms, Leaf eaters, Beetles, Thrips, Aphids",
+      "usage": "Broad-spectrum insecticide with rapid knockdown effect."
+    }
+  },
+  {
+    "id": 18,
+    "name": "Lambda cyhalothrin 5% EC",
+    "regNo": "CIR-362103/2026",
+    "category": "Insecticides",
+    "type": "EC",
+    "desc": "Rapid action insecticide for various crop segments.",
+    "image": "https://images.unsplash.com/photo-1591130901921-3f0652bb3915?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "General Agricultural Crops",
+      "pests": "Wide range of standard crop pests/diseases",
+      "usage": "Follow local agricultural recommendations and label instructions."
+    }
+  },
+  {
+    "id": 19,
+    "name": "Thiamethoxam 12.6% + Lambda-Cyhalothrin 9.5% ZC",
+    "regNo": "CIR-362102/2026",
+    "category": "Insecticides",
+    "type": "ZC",
+    "desc": "Advanced mixture for broad-spectrum pest management.",
+    "image": "https://images.unsplash.com/photo-1592419044706-39796d40f98c?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Cereals, Oilseeds, Fruits, Vegetables, Cotton",
+      "pests": "Whiteflies, Jassids, Aphids, Beetles, Grasshoppers",
+      "usage": "Systemic action through seed treatment or foliar application."
+    }
+  },
+  {
+    "id": 20,
+    "name": "Glyphosate 41% SL",
+    "regNo": "CIR-362101/2026",
+    "category": "Herbicides",
+    "type": "SL",
+    "desc": "Non-selective systemic herbicide for total weed control.",
+    "image": "https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Non-crop areas, Orchards, Plantation crops",
+      "pests": "Annual and Perennial broadleaf weeds and grasses",
+      "usage": "Non-selective; avoid contact with green parts of desired plants."
+    }
+  },
+  {
+    "id": 21,
+    "name": "Azoxystrobin 18.2% + Difenoconazole 11.4% SC",
+    "regNo": "CIR-362100/2026",
+    "category": "Fungicides",
+    "type": "SC",
+    "desc": "Powerful systemic fungicide for many crops.",
+    "image": "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Grapes, Rice, Tomato, Chili, Potato",
+      "pests": "Downy mildew, Sheath blight, Powdery mildew, Blights",
+      "usage": "Broad-spectrum systemic fungicide with translaminar movement."
+    }
+  },
+  {
+    "id": 22,
+    "name": "Tebuconazole 10% + Sulphur 65% WG",
+    "regNo": "CIR-362099/2026",
+    "category": "Fungicides",
+    "type": "WG",
+    "desc": "Dual-action granules for fungal and mite control.",
+    "image": "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Wheat, Rice, Groundnut, Onions, Soybean",
+      "pests": "Rust, Powdery mildew, Purple blotch, Tikka disease",
+      "usage": "Effective triazole fungicide for both preventive and curative use."
+    }
+  },
+  {
+    "id": 23,
+    "name": "2,4-D Ethyl Ester 38% E.C.",
+    "regNo": "CIR-362098/2026",
+    "category": "Herbicides",
+    "type": "EC",
+    "desc": "Post-emergence herbicide for broad-leaved weeds.",
+    "image": "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "General Agricultural Crops",
+      "pests": "Wide range of standard crop pests/diseases",
+      "usage": "Follow local agricultural recommendations and label instructions."
+    }
+  },
+  {
+    "id": 24,
+    "name": "Bispyribac sodium 10% w/v SC",
+    "regNo": "CIR-362155/2026",
+    "category": "Herbicides",
+    "type": "SC",
+    "desc": "Selective herbicide for weed control in rice.",
+    "image": "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice (Direct Seeded and Transplanted)",
+      "pests": "Major grasses, broadleaf weeds, and sedges",
+      "usage": "Early post-emergence selective herbicide for rice."
+    }
+  },
+  {
+    "id": 25,
+    "name": "Ammonium Salt of Glyphosate 71% SG",
+    "regNo": "CIR-362154/2026",
+    "category": "Herbicides",
+    "type": "SG",
+    "desc": "Highly concentrated non-selective herbicide.",
+    "image": "https://images.unsplash.com/photo-1599447421416-3414502d18a5?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Non-crop areas, Orchards, Plantation crops",
+      "pests": "Annual and Perennial broadleaf weeds and grasses",
+      "usage": "Non-selective; avoid contact with green parts of desired plants."
+    }
+  },
+  {
+    "id": 26,
+    "name": "Imazethapyr 10 % SL",
+    "regNo": "CIR-362153/2026",
+    "category": "Herbicides",
+    "type": "SL",
+    "desc": "Selective herbicide for soybean and other crops.",
+    "image": "https://images.unsplash.com/photo-1591130901921-3f0652bb3915?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Soybean, Groundnut",
+      "pests": "Major grasses and broadleaf weeds",
+      "usage": "Broad-spectrum herbicide with soil and foliar activity."
+    }
+  },
+  {
+    "id": 27,
+    "name": "Fipronil 5% SC",
+    "regNo": "CIR-362152/2026",
+    "category": "Insecticides",
+    "type": "SC",
+    "desc": "Modern insecticide with high systemic activity.",
+    "image": "https://images.unsplash.com/photo-1592419044706-39796d40f98c?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice, Maize, Cotton, Sugarcane, Vegetables",
+      "pests": "Stem borer, Leaf hopper, Aphids, Thrips, Rootworms",
+      "usage": "Soil treatment or foliar spray as recommended by local guidelines."
+    }
+  },
+  {
+    "id": 28,
+    "name": "Dinotefuran 20% WG",
+    "regNo": "CIR-362151/2026",
+    "category": "Insecticides",
+    "type": "WG",
+    "desc": "Fast-acting insecticide for various sucking pests.",
+    "image": "https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice, Chili, Cotton, Vegetables",
+      "pests": "Brown Plant Hopper (BPH), Thrips, White flies",
+      "usage": "Third-generation neonicotinoid for sucking pest control."
+    }
+  },
+  {
+    "id": 29,
+    "name": "Imidacloprid 70% WG",
+    "regNo": "CIR-362150/2026",
+    "category": "Insecticides",
+    "type": "WG",
+    "desc": "Highly effective systemic insecticide for many crops.",
+    "image": "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Cotton, Rice, Sugarcane, Fruits, Vegetables",
+      "pests": "Aphids, Whiteflies, Thrips, Mealybugs, Jassids",
+      "usage": "Highly systemic; effective through soil or foliar application."
+    }
+  },
+  {
+    "id": 30,
+    "name": "Bifenthrin 10% EC",
+    "regNo": "CIR-362149/2026",
+    "category": "Insecticides",
+    "type": "EC",
+    "desc": "Pyrethroid insecticide with broad-spectrum control.",
+    "image": "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Cotton, Rice, Fruits, Vegetables, Tree nuts",
+      "pests": "Mites, Bollworms, Aphids, Stem borer, Leaf folder",
+      "usage": "Contact and stomach action; effective against both insects and mites."
+    }
+  },
+  {
+    "id": 31,
+    "name": "Thiamethoxam 25% WG",
+    "regNo": "CIR-362261/2026",
+    "category": "Insecticides",
+    "type": "WG",
+    "desc": "Widely used systemic insecticide for various applications.",
+    "image": "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Cereals, Oilseeds, Fruits, Vegetables, Cotton",
+      "pests": "Whiteflies, Jassids, Aphids, Beetles, Grasshoppers",
+      "usage": "Systemic action through seed treatment or foliar application."
+    }
+  },
+  {
+    "id": 32,
+    "name": "Triacontanol EW 0.1% MIN.",
+    "regNo": "CIR-362260/2026",
+    "category": "Plant Growth Regulator",
+    "type": "EW",
+    "desc": "Boosts plant growth and improves crop yield.",
+    "image": "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Cereals, Fruits, Vegetables, Flower crops",
+      "pests": "NA (Growth stimulant)",
+      "usage": "Natural plant growth promoter for higher yields."
+    }
+  },
+  {
+    "id": 33,
+    "name": "Captan 50% W.P.",
+    "regNo": "CIR-362259/2026",
+    "category": "Fungicides",
+    "type": "WP",
+    "desc": "Classic contact fungicide for many fruits and vegetables.",
+    "image": "https://images.unsplash.com/photo-1599447421416-3414502d18a5?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "General Agricultural Crops",
+      "pests": "Wide range of standard crop pests/diseases",
+      "usage": "Follow local agricultural recommendations and label instructions."
+    }
+  },
+  {
+    "id": 34,
+    "name": "Carbendazim 50% WP",
+    "regNo": "CIR-362258/2026",
+    "category": "Fungicides",
+    "type": "WP",
+    "desc": "Reliable systemic fungicide for disease control.",
+    "image": "https://images.unsplash.com/photo-1591130901921-3f0652bb3915?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Cereals, Fruits, Vegetables, Plantations",
+      "pests": "Powdery mildew, Leaf spot, Blight, Seed-borne diseases",
+      "usage": "Systemic fungicide; used for foliar spray and seed treatment."
+    }
+  },
+  {
+    "id": 35,
+    "name": "Fipronil 0.6% w/w GR",
+    "regNo": "CIR-362257/2026",
+    "category": "Insecticides",
+    "type": "GR",
+    "desc": "Soil-applied granular solution for pest management.",
+    "image": "https://images.unsplash.com/photo-1592419044706-39796d40f98c?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice, Maize, Cotton, Sugarcane, Vegetables",
+      "pests": "Stem borer, Leaf hopper, Aphids, Thrips, Rootworms",
+      "usage": "Soil treatment or foliar spray as recommended by local guidelines."
+    }
+  },
+  {
+    "id": 36,
+    "name": "Chlorantraniliprole 18.5% SC",
+    "regNo": "CIR-362256/2026",
+    "category": "Insecticides",
+    "type": "SC",
+    "desc": "Highly potent insecticide with excellent residual control.",
+    "image": "https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Corn, Cotton, Rice, Soybean, Tomato, Cabbage",
+      "pests": "Armyworm, Bollworm, Fruit borer, Diamondback moth",
+      "usage": "Apply when pest population reaches EIL; ensures long-term protection."
+    }
+  },
+  {
+    "id": 37,
+    "name": "Emamectin Benzoate 1.9% EC",
+    "regNo": "CIR-362255/2026",
+    "category": "Insecticides",
+    "type": "EC",
+    "desc": "Natural origin insecticide for lepidopteran pests.",
+    "image": "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Grapes, Cabbage, Tomato, Cotton, Chickpea",
+      "pests": "Bollworms, DBM, Fruit borer, Thrips, Mites",
+      "usage": "Derived from natural source; effective against Lepidoptera."
+    }
+  },
+  {
+    "id": 38,
+    "name": "Thiamethoxam 30% FS",
+    "regNo": "CIR-362254/2026",
+    "category": "Insecticides",
+    "type": "FS",
+    "desc": "High-load systemic seed treatment solution.",
+    "image": "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Cereals, Oilseeds, Fruits, Vegetables, Cotton",
+      "pests": "Whiteflies, Jassids, Aphids, Beetles, Grasshoppers",
+      "usage": "Systemic action through seed treatment or foliar application."
+    }
+  },
+  {
+    "id": 39,
+    "name": "Cartap Hydrochloride 4% GR",
+    "regNo": "CIR-362253/2026",
+    "category": "Insecticides",
+    "type": "GR",
+    "desc": "Controls stem borers and other pests effectively.",
+    "image": "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice, Potato, Cabbage, Cotton",
+      "pests": "Stem borer, Leaf folder, Aphids, Diamondback moth",
+      "usage": "Systemic insecticide for controlling chewing and sucking pests."
+    }
+  },
+  {
+    "id": 40,
+    "name": "Pretilachlor 50% E.C.",
+    "regNo": "CIR-362252/2026",
+    "category": "Herbicides",
+    "type": "EC",
+    "desc": "Wait-and-see pre-emergence weed control solution.",
+    "image": "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice (Paddy)",
+      "pests": "Grasses, Sedges, Broadleaf weeds",
+      "usage": "Selective pre-emergence herbicide."
+    }
+  },
+  {
+    "id": 41,
+    "name": "Propaquizafop 10% EC",
+    "regNo": "CIR-362251/2026",
+    "category": "Herbicides",
+    "type": "EC",
+    "desc": "Post-emergence selective herbicide for grassy weeds.",
+    "image": "https://images.unsplash.com/photo-1599447421416-3414502d18a5?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Soybean, Onion, Potato, Cotton, Vegetables",
+      "pests": "Grassy weeds specifically",
+      "usage": "Selective post-emergence herbicide for controlling grasses."
+    }
+  },
+  {
+    "id": 42,
+    "name": "Tembotrione 34.4% w/w SC",
+    "regNo": "CIR-362356/2026",
+    "category": "Herbicides",
+    "type": "SC",
+    "desc": "Post-emergence herbicide for broad-leaved and grassy weeds.",
+    "image": "https://images.unsplash.com/photo-1591130901921-3f0652bb3915?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Maize (Corn)",
+      "pests": "Major grasses and broad-leaved weeds",
+      "usage": "Post-emergence herbicide; ensure crop safety in corn."
+    }
+  },
+  {
+    "id": 43,
+    "name": "Pyrazosulfuron ethyl 10% WP",
+    "regNo": "CIR-362324/2026",
+    "category": "Herbicides",
+    "type": "WP",
+    "desc": "Low-dose herbicide for controlling weeds in paddy.",
+    "image": "https://images.unsplash.com/photo-1592419044706-39796d40f98c?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Transplanted and Direct seeded Rice",
+      "pests": "Broadleaf weeds and Sedges",
+      "usage": "Selective herbicide; low dose requirement for rice crops."
+    }
+  },
+  {
+    "id": 44,
+    "name": "Topramezone 336 g/l SC",
+    "regNo": "CIR-362355/2026",
+    "category": "Herbicides",
+    "type": "SC",
+    "desc": "Highly effective post-emergence herbicide for maize.",
+    "image": "https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Maize (Corn)",
+      "pests": "Annual grasses and broadleaf weeds",
+      "usage": "Selective post-emergence herbicide for corn."
+    }
+  },
+  {
+    "id": 45,
+    "name": "GIBBERELLIC ACID 40% WSG",
+    "regNo": "CIR-362354/2026",
+    "category": "Plant Growth Regulator",
+    "type": "WSG",
+    "desc": "Enhances crop quality and productivity.",
+    "image": "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Grapes, Fruits, Sugarcane, Vegetables",
+      "pests": "NA (Plant growth promoter)",
+      "usage": "Promotes fruit size, uniform ripening, and plant height."
+    }
+  },
+  {
+    "id": 46,
+    "name": "Pretilachlor 37% w/w EW",
+    "regNo": "CIR-362353/2026",
+    "category": "Herbicides",
+    "type": "EW",
+    "desc": "Effective pre-emergence control for early-season weeds.",
+    "image": "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice (Paddy)",
+      "pests": "Grasses, Sedges, Broadleaf weeds",
+      "usage": "Selective pre-emergence herbicide."
+    }
+  },
+  {
+    "id": 47,
+    "name": "Paraquat Dichloride 24% SL",
+    "regNo": "CIR-362352/2026",
+    "category": "Herbicides",
+    "type": "SL",
+    "desc": "Quick knockdown herbicide for non-cropped areas.",
+    "image": "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Non-crop areas, Plantation crops, Orchards",
+      "pests": "General weeds and grasses (burndown)",
+      "usage": "Fast-acting contact herbicide; provides quick weed desiccation."
+    }
+  },
+  {
+    "id": 48,
+    "name": "Diafenthiuron 50% WP",
+    "regNo": "CIR-362351/2026",
+    "category": "Insecticides",
+    "type": "WP",
+    "desc": "Multi-mode action against mites and whiteflies.",
+    "image": "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Cotton, Cabbage, Chili, Tomato",
+      "pests": "Whiteflies, Aphids, Thrips, Mites, DBM",
+      "usage": "Unique mode of action; inhibits respiration of target pests."
+    }
+  },
+  {
+    "id": 49,
+    "name": "Chlorantraniliprole 0.4% w/w GR",
+    "regNo": "CIR-362350/2026",
+    "category": "Insecticides",
+    "type": "GR",
+    "desc": "Soil-applied granular solution for durable protection.",
+    "image": "https://images.unsplash.com/photo-1599447421416-3414502d18a5?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Corn, Cotton, Rice, Soybean, Tomato, Cabbage",
+      "pests": "Armyworm, Bollworm, Fruit borer, Diamondback moth",
+      "usage": "Apply when pest population reaches EIL; ensures long-term protection."
+    }
+  },
+  {
+    "id": 50,
+    "name": "Acetamiprid 20% SP",
+    "regNo": "CIR-362349/2026",
+    "category": "Insecticides",
+    "type": "SP",
+    "desc": "Systemic insecticide with rapid action and long residual effect.",
+    "image": "https://images.unsplash.com/photo-1591130901921-3f0652bb3915?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Cotton, Vegetables, Fruits, Tea",
+      "pests": "Aphids, Whiteflies, Jassids, Thrips",
+      "usage": "Systemic insecticide with translaminar activity."
+    }
+  },
+  {
+    "id": 51,
+    "name": "Cartap Hydrochloride 75% SG",
+    "regNo": "CIR-362323/2026",
+    "category": "Insecticides",
+    "type": "SG",
+    "desc": "Highly concentrated granular insecticide for various crops.",
+    "image": "https://images.unsplash.com/photo-1592419044706-39796d40f98c?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice, Potato, Cabbage, Cotton",
+      "pests": "Stem borer, Leaf folder, Aphids, Diamondback moth",
+      "usage": "Systemic insecticide for controlling chewing and sucking pests."
+    }
+  },
+  {
+    "id": 52,
+    "name": "Cartap Hydrochloride 50% SP",
+    "regNo": "CIR-362322/2026",
+    "category": "Insecticides",
+    "type": "SP",
+    "desc": "Soluble powder for effective control of various pests.",
+    "image": "https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice, Potato, Cabbage, Cotton",
+      "pests": "Stem borer, Leaf folder, Aphids, Diamondback moth",
+      "usage": "Systemic insecticide for controlling chewing and sucking pests."
+    }
+  },
+  {
+    "id": 53,
+    "name": "Copper Oxychloride 50.00% WP",
+    "regNo": "CIR-361783/2026",
+    "category": "Fungicides",
+    "type": "WP",
+    "desc": "Broad-spectrum contact fungicide with multi-site action.",
+    "image": "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Fruits, Vegetables, Coffee, Cardamom",
+      "pests": "Blights, Leaf spots, Cankers, Downy mildew",
+      "usage": "Protective contact fungicide with broad-spectrum activity."
+    }
+  },
+  {
+    "id": 54,
+    "name": "Dimethomorph 50% WP",
+    "regNo": "CIR-361782/2026",
+    "category": "Fungicides",
+    "type": "WP",
+    "desc": "Specialized fungicide for downy mildew and other diseases.",
+    "image": "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Grapes, Potato, Tomato, Cucumber",
+      "pests": "Downy mildew, Late blight",
+      "usage": "Systemic fungicide; prevents spore formation and mycelial growth."
+    }
+  },
+  {
+    "id": 55,
+    "name": "Hexaconazole 5% SC",
+    "regNo": "CIR-361781/2026",
+    "category": "Fungicides",
+    "type": "SC",
+    "desc": "Systemic triazole fungicide for powdery mildew management.",
+    "image": "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Rice, Grapes, Mango, Fruits",
+      "pests": "Sheath blight, Powdery mildew, Scabs, Rust",
+      "usage": "Systemic triazole fungicide with protective and curative action."
+    }
+  },
+  {
+    "id": 56,
+    "name": "IMIDACLOPRID 17.8% SL",
+    "regNo": "CIR-361780/2026",
+    "category": "Insecticides",
+    "type": "SL",
+    "desc": "Versatile systemic insecticide for a wide range of pests.",
+    "image": "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Cotton, Rice, Sugarcane, Fruits, Vegetables",
+      "pests": "Aphids, Whiteflies, Thrips, Mealybugs, Jassids",
+      "usage": "Highly systemic; effective through soil or foliar application."
+    }
+  },
+  {
+    "id": 57,
+    "name": "Gibberellic Acid 0.001% L",
+    "regNo": "CIR-361779/2026",
+    "category": "Plant Growth Regulator",
+    "type": "L",
+    "desc": "Enhances flowering and fruit set in various crops.",
+    "image": "https://images.unsplash.com/photo-1599447421416-3414502d18a5?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Grapes, Fruits, Sugarcane, Vegetables",
+      "pests": "NA (Plant growth promoter)",
+      "usage": "Promotes fruit size, uniform ripening, and plant height."
+    }
+  },
+  {
+    "id": 58,
+    "name": "Emamectin Benzoate 5% SG",
+    "regNo": "CIR-361778/2026",
+    "category": "Insecticides",
+    "type": "SG",
+    "desc": "Soluble granules for controlling lepidopteran pests.",
+    "image": "https://images.unsplash.com/photo-1591130901921-3f0652bb3915?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Grapes, Cabbage, Tomato, Cotton, Chickpea",
+      "pests": "Bollworms, DBM, Fruit borer, Thrips, Mites",
+      "usage": "Derived from natural source; effective against Lepidoptera."
+    }
+  },
+  {
+    "id": 59,
+    "name": "Chlorpyriphos 50% + Cypermethrin 5% EC",
+    "regNo": "CIR-361777/2026",
+    "category": "Insecticides",
+    "type": "EC",
+    "desc": "Combination insecticide for comprehensive pest control.",
+    "image": "https://images.unsplash.com/photo-1592419044706-39796d40f98c?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Cotton, Rice, Sugarcane, Pulses, Fruits",
+      "pests": "Bollworms, Stem borer, Termites, Aphids",
+      "usage": "Organophosphate with contact, stomach, and respiratory action."
+    }
+  },
+  {
+    "id": 60,
+    "name": "Chlorantraniliprole 9.3% + Lambdacyhalothrin 4.6% ZC",
+    "regNo": "CIR-361776/2026",
+    "category": "Insecticides",
+    "type": "ZC",
+    "desc": "Dual-action mixture for broad-spectrum insect control.",
+    "image": "https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800&auto=format&fit=crop&q=60",
+    "details": {
+      "crops": "Corn, Cotton, Rice, Soybean, Tomato, Cabbage",
+      "pests": "Armyworm, Bollworm, Fruit borer, Diamondback moth",
+      "usage": "Apply when pest population reaches EIL; ensures long-term protection."
+    }
+  }
+]

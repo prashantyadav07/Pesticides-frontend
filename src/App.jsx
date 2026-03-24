@@ -4,12 +4,13 @@ import { Toaster } from 'sonner';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 
-// Lazy-load all pages — gives Vite automatic per-route code splitting.
+// Lazy-load all pages - gives Vite automatic per-route code splitting.
 // Each page becomes its own JS chunk (downloaded only when navigated to).
 const Home = lazy(() => import('./pages/Home'));
 const Products = lazy(() => import('./pages/Products'));
 const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
+const ProductDetail = lazy(() => import('./pages/ProductDetail'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -73,6 +74,16 @@ function AnimatedRoutes() {
           <PageTransition>
             <Suspense fallback={<PageFallback />}>
               <Contact />
+            </Suspense>
+          </PageTransition>
+        }
+      />
+      <Route
+        path="/product/:id"
+        element={
+          <PageTransition>
+            <Suspense fallback={<PageFallback />}>
+              <ProductDetail />
             </Suspense>
           </PageTransition>
         }

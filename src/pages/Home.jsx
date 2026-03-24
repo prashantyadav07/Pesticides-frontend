@@ -127,9 +127,16 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="relative z-20 flex flex-col h-full justify-between gap-8 md:gap-0">
-              <Shield className="size-14 md:size-16 text-[#059669]" />
-              <div className="max-w-full md:max-w-[65%]">
+            <div className="relative z-20 flex flex-col h-full justify-start gap-12 md:gap-16">
+              <div className="flex justify-between items-start">
+                <Shield className="size-14 md:size-16 text-[#059669]" />
+                <div className="flex flex-col items-end gap-2">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Quality Standard</span>
+                  <div className="h-[2px] w-12 bg-emerald-100" />
+                </div>
+              </div>
+
+              <div className="max-w-full md:max-w-[65%] mt-auto md:mt-0">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 md:mb-6 leading-[1.05] text-[#0b132b] tracking-tighter">
                   Elite <br /> Compliance. <br /> Zero <br className="hidden sm:block" /> Compromise.
                 </h2>
