@@ -39,7 +39,7 @@ const buttonVariants = cva(
 );
 
 const Button = React.memo(React.forwardRef(
-  ({ className, variant, size, children, ...props }, ref) => {
+  ({ className, variant, size, asChild, children, ...props }, ref) => {
     const shouldReduceMotion = useReducedMotion();
 
     return (
