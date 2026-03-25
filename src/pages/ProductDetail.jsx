@@ -99,7 +99,7 @@ const ProductDetail = () => {
             className="flex items-center gap-1.5 text-xs md:text-sm font-bold text-gray-400 hover:text-[#0A7C5C] transition-colors shrink-0"
           >
             <ChevronLeft size={18} />
-            <span className="uppercase tracking-[0.2em]">{product.category} CATALOG</span>
+            <span className="uppercase tracking-[0.2em]">{product.category} CATALOGE</span>
           </Link>
           <div className="h-4 w-px bg-gray-200 mx-4 hidden sm:block" />
           <span className="text-xs md:text-sm text-[#1D2B36] font-bold truncate max-w-[150px] sm:max-w-none hidden sm:block">
