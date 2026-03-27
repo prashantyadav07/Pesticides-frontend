@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
+import heroVideo from '../assets/Agrochemical_Brand_Video_Generation_Request.mp4';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -68,7 +69,9 @@ export default function Home() {
 
       // Reduced parallax offset and fixed layout to prevent half-loading or cutoff images
       gsap.utils.toArray('.gsap-parallax').forEach((img) => {
-        gsap.to(img, { yPercent: 15, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
+        if (window.innerWidth > 768) {
+          gsap.to(img, { yPercent: 15, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
+        }
       });
 
       gsap.utils.toArray('.gsap-text-reveal').forEach((el) => {
@@ -98,11 +101,14 @@ export default function Home() {
       {/* 1. Hero Section */}
       <section className="relative w-full h-[100vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-[#0A1628]">
         {/* Adjusted the wrapper size and GSAP translation to prevent image from being cut off at the bottom */}
-        <div className="absolute inset-0 w-full h-[130%] -top-[15%] z-0">
-          <img
-            src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=2000&auto=format&fit=crop"
-            alt="Agriculture Field"
-            className="w-full h-full object-cover opacity-40 gsap-parallax"
+        <div className="absolute inset-0 w-full h-full md:h-[130%] top-0 md:-top-[15%] z-0 overflow-hidden">
+          <video
+            src={heroVideo}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover object-center opacity-40 gsap-parallax"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0A1628] via-[#0A1628]/80 to-[#12A87C]/30 mix-blend-multiply" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#F8FFFE] via-transparent to-transparent opacity-10" />
